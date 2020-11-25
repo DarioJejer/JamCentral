@@ -5,25 +5,50 @@ using System.Web;
 using System.Web.Mvc;
 using JamCentral.Models;
 using JamCentral.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace JamCentral.Controllers
 {
     public class GigsController : Controller
     {
-        // GET: Gigs
+        private ApplicationDbContext _context;
+
+        public GigsController()
+        {
+            _context = new ApplicationDbContext();
+        }
+        [Authorize]
         public ActionResult Create()
         {
             var viewModel = new GigFormViewModel
             {
-                Genres = new List<Genre>
-                {
-                    new Genre { Id = 1, Name = "Jazz"},
-                    new Genre { Id = 2, Name = "Rock"},
-                    new Genre { Id = 3, Name = "Blues"}
-                }
+                Genres = _context.Genres.ToList()
             };
 
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public ActionResult Create(GigFormViewModel viewModel)
+        {
+            var genreInDb = _context.Genres.Single(g => g.Id == viewModel.GenreId);
+
+            var userId = User.Identity.GetUserId();
+            var artist = _context.Users.Single(u => u.Id == userId);
+
+            var Gig = new Gig
+            {
+                Location = viewModel.Location,
+                Date = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
+                Genre = genreInDb,
+                Artist = artist
+            };
+
+            _context.Gigs.Add(Gig);
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

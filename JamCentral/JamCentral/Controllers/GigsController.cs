@@ -17,6 +17,7 @@ namespace JamCentral.Controllers
         {
             _context = new ApplicationDbContext();
         }
+
         [Authorize]
         public ActionResult Create()
         {
@@ -31,17 +32,12 @@ namespace JamCentral.Controllers
         [HttpPost]
         public ActionResult Create(GigFormViewModel viewModel)
         {
-            var genreInDb = _context.Genres.Single(g => g.Id == viewModel.GenreId);
-
-            var userId = User.Identity.GetUserId();
-            var artist = _context.Users.Single(u => u.Id == userId);
-
             var Gig = new Gig
             {
                 Location = viewModel.Location,
                 Date = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
-                Genre = genreInDb,
-                Artist = artist
+                GenreId = viewModel.GenreId,
+                ArtistId = User.Identity.GetUserId()
             };
 
             _context.Gigs.Add(Gig);

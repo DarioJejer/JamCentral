@@ -32,10 +32,16 @@ namespace JamCentral.Controllers
         [HttpPost]
         public ActionResult Create(GigFormViewModel viewModel)
         {
+            if (!ModelState.IsValid)
+            {
+                viewModel.Genres = _context.Genres.ToList();
+                return View("Create", viewModel);
+            }
+
             var Gig = new Gig
             {
                 Location = viewModel.Location,
-                Date = DateTime.Parse(string.Format("{0} {1}", viewModel.Date, viewModel.Time)),
+                Date = viewModel.GetDateTime(),
                 GenreId = viewModel.GenreId,
                 ArtistId = User.Identity.GetUserId()
             };

@@ -21,3 +21,12 @@ select,
 textarea {
     max-width: 280px;
 }
+
+/* Set color of validation massages on forms */
+span.field-validation-error {
+    color: red;
+}
+
+.input-validation-error {
+    border: 2px solid red;
+}

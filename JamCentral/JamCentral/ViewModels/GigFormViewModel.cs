@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace JamCentral.ViewModels
 {
@@ -18,6 +16,7 @@ namespace JamCentral.ViewModels
         [ValidTime]
         public string Time { get; set; }
         [Required]
+        [Display(Name ="Genre")]    
         public byte GenreId { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
         public DateTime GetDateTime ()

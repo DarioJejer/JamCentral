@@ -12,8 +12,10 @@ namespace JamCentral.ViewModels
         [Required]
         public string Location { get; set; }
         [Required]
+        [FutureDate]
         public string Date { get; set; }
         [Required]
+        [ValidTime]
         public string Time { get; set; }
         [Required]
         public byte GenreId { get; set; }

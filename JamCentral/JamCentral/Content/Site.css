@@ -30,3 +30,45 @@ span.field-validation-error {
 .input-validation-error {
     border: 2px solid red;
 }
+
+/*Home page list styles*/
+
+.gigs {
+    list-style:none;
+}
+ 
+.gigs > li {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.gigs > li .details {
+    position: absolute;
+    top: 0;
+    left: 70px;
+}
+    .gigs > li .details .artist {
+        display: block;
+        font-size: large;
+    }
+    .gigs > li .details .genre {
+        font-style: italic;
+    }
+
+.gigs > li .date {
+    background-color: red;
+    text-align: center;
+    width: 60px;
+    border-radius: 10px;
+    
+}
+
+    .gigs > li .date .month {
+        color:white;
+        text-transform: uppercase;
+    }
+
+    .gigs > li .date .day {
+        background-color: #f3f3f3;
+        font-size: large;
+    }

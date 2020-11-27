@@ -18,7 +18,11 @@ namespace JamCentral.Controllers
         }
         public ActionResult Index()
         {
-            var gigs = _context.Gigs.Include(m => m.Artist).Where(g => g.Date > DateTime.Now).ToList();
+            var gigs = _context.Gigs
+                .Include(m => m.Artist)
+                .Include(m => m.Genre)
+                .Where(g => g.Date > DateTime.Now)
+                .ToList();
 
             return View(gigs);
         }

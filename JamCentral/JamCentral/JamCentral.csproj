@@ -196,6 +196,10 @@
     <Compile Include="Migrations\202011251639195_AddNavigationIdsOnGigModel.Designer.cs">
       <DependentUpon>202011251639195_AddNavigationIdsOnGigModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011270800296_AddNameAttributeToApplicationUserTable.cs" />
+    <Compile Include="Migrations\202011270800296_AddNameAttributeToApplicationUserTable.Designer.cs">
+      <DependentUpon>202011270800296_AddNameAttributeToApplicationUserTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Genre.cs" />
@@ -329,6 +333,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011251639195_AddNavigationIdsOnGigModel.resx">
       <DependentUpon>202011251639195_AddNavigationIdsOnGigModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011270800296_AddNameAttributeToApplicationUserTable.resx">
+      <DependentUpon>202011270800296_AddNameAttributeToApplicationUserTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

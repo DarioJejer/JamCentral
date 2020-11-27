@@ -1,16 +1,26 @@
-﻿using System;
+﻿using JamCentral.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Data.Entity;
 
 namespace JamCentral.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationDbContext _context;
+
+        public HomeController()
+        {
+            _context = new ApplicationDbContext();
+        }
         public ActionResult Index()
         {
-            return View();
+            var gigs = _context.Gigs.Include(m => m.Artist).Where(g => g.Date > DateTime.Now).ToList();
+
+            return View(gigs);
         }
 
         public ActionResult About()

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<JamCentral.Models.Gig>
+﻿@model JamCentral.ViewModels.HomeViewModel
 @{
     ViewBag.Title = "Home Page";
 }
 <h1>Upcoming Gigs</h1>
 <ul class="gigs">
-    @foreach (var gig in Model)
+    @foreach (var gig in Model.upcomingGigs)
     {
     <li>
         <div class="date">
@@ -13,9 +13,17 @@
         </div>
         <div class="details">
             <span class="artist">
-            @gig.Artist.Name  <button data-artist-id="@gig.ArtistId" class="btn btn-link btn-sm js-toggle-follow">Follow</button></span>
+                @gig.Artist.Name
+                @if (Model.isAuthenticated)
+                {
+                    <button data-artist-id="@gig.ArtistId" class="btn btn-link btn-sm js-toggle-follow">Follow</button>
+                }
+            </span>
             <span class="genre">@gig.Genre.Name</span>
+            @if (Model.isAuthenticated)
+            {
             <button data-gig-id="@gig.Id" class="btn btn-light btn-sm float-right js-toggle-attendance">Going?</button>
+            }
         </div>
     </li>
     }

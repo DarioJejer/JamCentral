@@ -1,10 +1,9 @@
 ﻿using JamCentral.Models;
+using JamCentral.ViewModels;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace JamCentral.Controllers
 {
@@ -18,13 +17,19 @@ namespace JamCentral.Controllers
         }
         public ActionResult Index()
         {
+            
             var gigs = _context.Gigs
                 .Include(m => m.Artist)
                 .Include(m => m.Genre)
                 .Where(g => g.Date > DateTime.Now)
                 .ToList();
 
-            return View(gigs);
+            var viewModel = new HomeViewModel
+            {
+                upcomingGigs = gigs,
+                isAuthenticated = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
 
         public ActionResult About()

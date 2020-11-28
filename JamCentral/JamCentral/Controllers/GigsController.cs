@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 using System.Web.Mvc;
 using JamCentral.Models;
 using JamCentral.ViewModels;
@@ -53,6 +54,25 @@ namespace JamCentral.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+        [Authorize]
+        public ActionResult MyCalendar()
+        {
+            var userId = User.Identity.GetUserId();
+            var gigs = _context.Attendences
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Gig)
+                .Include(g => g.Artist)
+                .Include(g => g.Genre)
+                .ToList();
+
+            var viewModel = new HomeViewModel
+            {
+                upcomingGigs = gigs,
+                isAuthenticated = User.Identity.IsAuthenticated
+            };
+
+            return View(viewModel);
         }
     }
 }

@@ -181,6 +181,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AttendencesController.cs" />
+    <Compile Include="Controllers\API\FollowingsController.cs" />
+    <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -216,10 +218,14 @@
     <Compile Include="Migrations\202011271135358_CreateAtendenceTable.Designer.cs">
       <DependentUpon>202011271135358_CreateAtendenceTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011281000538_AddFollowingsTable.cs" />
+    <Compile Include="Migrations\202011281000538_AddFollowingsTable.Designer.cs">
+      <DependentUpon>202011281000538_AddFollowingsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attendence.cs" />
-    <Compile Include="Models\Followings.cs" />
+    <Compile Include="Models\Following.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -357,6 +363,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011271135358_CreateAtendenceTable.resx">
       <DependentUpon>202011271135358_CreateAtendenceTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011281000538_AddFollowingsTable.resx">
+      <DependentUpon>202011281000538_AddFollowingsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

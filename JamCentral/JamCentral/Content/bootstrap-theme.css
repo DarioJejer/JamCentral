@@ -18,6 +18,10 @@ h2, .h2 {
     padding-top: 20px;
 }
 
+.navbar {
+    padding: 0 0;
+}
+
 .navbar-inverse {
     background-color: #ff9f4b;
     border-color: #f9de1b;
@@ -58,14 +62,14 @@ h2, .h2 {
 
 .btn-primary {
     color: #ffffff;
-    background-color: #52656B;
+    background-color: #27aed8;
     border: 0;
-    padding: 8px 20px;
+    /*padding: 8px 20px;*/
 }
 
     .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
         color: #fff;
-        background-color: #45b4e0;
+        background-color: #47c5f7;
     }
 
 .pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {

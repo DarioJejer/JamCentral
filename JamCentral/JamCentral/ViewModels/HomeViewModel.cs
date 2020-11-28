@@ -6,7 +6,7 @@ using System.Web;
 
 namespace JamCentral.ViewModels
 {
-    public class HomeViewModel
+    public class GigsViewModel
     {        
         public IEnumerable<Gig> upcomingGigs { get; set; }
         public bool isAuthenticated { get; set; }

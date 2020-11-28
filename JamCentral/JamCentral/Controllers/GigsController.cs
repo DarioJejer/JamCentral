@@ -66,10 +66,10 @@ namespace JamCentral.Controllers
                 .Include(g => g.Genre)
                 .ToList();
 
-            var viewModel = new HomeViewModel
+            var viewModel = new GigsViewModel
             {
                 upcomingGigs = gigs,
-                isAuthenticated = User.Identity.IsAuthenticated
+                isAuthenticated = false
             };
 
             return View(viewModel);

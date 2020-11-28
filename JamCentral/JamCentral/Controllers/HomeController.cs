@@ -24,7 +24,7 @@ namespace JamCentral.Controllers
                 .Where(g => g.Date > DateTime.Now)
                 .ToList();
 
-            var viewModel = new HomeViewModel
+            var viewModel = new GigsViewModel
             {
                 upcomingGigs = gigs,
                 isAuthenticated = User.Identity.IsAuthenticated

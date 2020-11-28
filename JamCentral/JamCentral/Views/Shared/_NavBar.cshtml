@@ -1,0 +1,15 @@
+﻿<nav class="navbar navbar-inverse navbar-expand-lg">
+    <div class="container">
+        @Html.ActionLink("JamCentral", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav mr-auto">
+                <li class="nav-item">@Html.ActionLink("Add a Gig", "Create", "Gigs", null, new { @class = "nav-link" })</li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</nav>
+

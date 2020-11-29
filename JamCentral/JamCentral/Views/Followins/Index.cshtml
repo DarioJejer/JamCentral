@@ -10,8 +10,41 @@
 <p>You havent followed an Artist yet, give it a try!</p>
 }
 
-@foreach (var artist in Model)
+<ul class="following">
+    @foreach (var artist in Model)
+    {
+        <li>
+            <div class="artist">
+                <text class="nick-name">@artist.Name</text>
+                <span id="unfollow" data-artist-id="@artist.Id" class="btn btn-primary btn-sm">Unfollow</span>
+            </div>
+        </li>
+    }
+</ul>
+
+@section scripts
 {
-    <p>@artist.Name</p>
+    <script>
+        $(document).ready(function () {
+            $('#unfollow').click(function (e) {
+                var button = $(e.target);
+                $.ajax({
+                    url: '/api/followings',
+                    method: 'DELETE',
+                    data: { ArtistId: button.attr("data-artist-id") }
+                })
+                .done(function () {
+                    console.log("Success");
+                    button
+                        .removeClass("btn-primary")
+                        .addClass("btn-info")
+                        .text("Unfollowed");
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
+            });
+        });
+    </script>
 }
 

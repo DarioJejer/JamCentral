@@ -73,3 +73,20 @@ span.field-validation-error {
         background-color: #f3f3f3;
         font-size: large;
     }
+
+.following {
+    list-style: none;
+}
+
+.following .artist {
+    margin-bottom: 30px;
+    width: 200px;
+}
+    .following .artist .nick-name {
+        font-size: large;
+        font-weight: bold;
+    }
+
+    .following .artist .btn-sm {
+        float: right;
+    }

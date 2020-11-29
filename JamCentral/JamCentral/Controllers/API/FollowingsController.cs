@@ -40,5 +40,16 @@ namespace JamCentral.Controllers.API
 
             return Ok();
         }
+
+        [HttpDelete]
+        public void DeleteFolowing(FollowingDto dto)
+        {
+            var userId = User.Identity.GetUserId();
+            var following = _context.Followings
+                .Single(f => f.ArtistId == dto.ArtistId && f.UserId == userId);
+
+            _context.Followings.Remove(following);
+            _context.SaveChanges();
+        }
     }
 }

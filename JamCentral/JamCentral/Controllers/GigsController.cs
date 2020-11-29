@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Data.Entity;
-using System.Web.Mvc;
-using JamCentral.Models;
+﻿using JamCentral.Models;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
+using System.Data.Entity;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace JamCentral.Controllers
 {

@@ -1,0 +1,17 @@
+﻿@model IEnumerable<JamCentral.Models.ApplicationUser>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Followed Artists</h2>
+
+@if (Model.Count() == 0)
+{
+<p>You havent followed an Artist yet, give it a try!</p>
+}
+
+@foreach (var artist in Model)
+{
+    <p>@artist.Name</p>
+}
+

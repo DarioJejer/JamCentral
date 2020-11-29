@@ -182,7 +182,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\API\AttendencesController.cs" />
     <Compile Include="Controllers\API\FollowingsController.cs" />
-    <Compile Include="Controllers\FollowinsController.cs" />
+    <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Dtos\FollowingDto.cs" />
     <Compile Include="Controllers\GigsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -338,7 +338,8 @@
     <Content Include="Views\Gigs\MyCalendar.cshtml" />
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\Shared\_GigsList.cshtml" />
-    <Content Include="Views\Followins\Index.cshtml" />
+    <Content Include="Views\Followings\Index.cshtml" />
+    <Content Include="Views\Gigs\Mine.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

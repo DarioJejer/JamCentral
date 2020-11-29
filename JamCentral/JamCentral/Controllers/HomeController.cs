@@ -27,7 +27,7 @@ namespace JamCentral.Controllers
             var viewModel = new GigsViewModel
             {
                 upcomingGigs = gigs,
-                isAuthenticated = User.Identity.IsAuthenticated
+                showActions = User.Identity.IsAuthenticated
             };
             return View(viewModel);
         }

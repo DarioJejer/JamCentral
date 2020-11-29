@@ -50,7 +50,7 @@ namespace JamCentral.Controllers
 
             _context.SaveChanges();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Mine", "Gigs");
         }
         [Authorize]
         public ActionResult MyCalendar()
@@ -66,10 +66,19 @@ namespace JamCentral.Controllers
             var viewModel = new GigsViewModel
             {
                 upcomingGigs = gigs,
-                isAuthenticated = false
+                showActions = false
             };
 
             return View(viewModel);
+        }
+
+        [Authorize]
+        public ActionResult Mine()
+        {
+            var userId = User.Identity.GetUserId();
+            var gigs = _context.Gigs.Where(g => g.ArtistId == userId).Include(g => g.Genre).ToList();
+
+            return View(gigs);
         }
     }
 }

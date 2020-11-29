@@ -1,16 +1,15 @@
 ﻿using JamCentral.Models;
 using Microsoft.AspNet.Identity;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace JamCentral.Controllers
 {
-    public class FollowinsController : Controller
+    public class FollowingsController : Controller
     {
         private ApplicationDbContext _context;
 
-        public FollowinsController()
+        public FollowingsController()
         {
             _context = new ApplicationDbContext();
         }

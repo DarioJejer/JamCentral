@@ -21,10 +21,11 @@ namespace JamCentral.Controllers
         {
             var viewModel = new GigFormViewModel
             {
+                Heading = "Add a Gig",
                 Genres = _context.Genres.ToList()
             };
 
-            return View(viewModel);
+            return View("GigForm",viewModel);
         }
 
         [Authorize]
@@ -34,8 +35,9 @@ namespace JamCentral.Controllers
         {
             if (!ModelState.IsValid)
             {
+                viewModel.Heading = "Add a Gig";
                 viewModel.Genres = _context.Genres.ToList();
-                return View("Create", viewModel);
+                return View("GigForm", viewModel);
             }
 
             var Gig = new Gig
@@ -73,6 +75,24 @@ namespace JamCentral.Controllers
         }
 
         [Authorize]
+        public ActionResult Edit(int gigId)
+        {
+            var userId = User.Identity.GetUserId();
+            var gigInDb = _context.Gigs.SingleOrDefault(g => g.Id == gigId && g.ArtistId == userId);
+            var viewModel = new GigFormViewModel
+            {
+                Heading = "Edit a Gig",
+                Location = gigInDb.Location,
+                Date = gigInDb.Date.ToString("d MMM yyyy"),
+                Time = gigInDb.Date.ToString("HH:mm"),
+                GenreId = gigInDb.GenreId,
+                Genres = _context.Genres.ToList()
+        };
+
+            return View("GigForm", viewModel);
+        }
+
+            [Authorize]
         public ActionResult Mine()
         {
             var userId = User.Identity.GetUserId();

@@ -19,6 +19,8 @@ namespace JamCentral.ViewModels
         [Display(Name ="Genre")]    
         public byte GenreId { get; set; }
         public IEnumerable<Genre> Genres { get; set; }
+
+        public string Heading { get; set; }
         public DateTime GetDateTime ()
         { 
             return DateTime.Parse(string.Format("{0} {1}", Date, Time));

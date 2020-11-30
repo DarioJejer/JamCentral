@@ -63,16 +63,19 @@ span.field-validation-error {
     border-radius: 10px;
     
 }
-
     .gigs > li .date .month {
         color:white;
         text-transform: uppercase;
+        padding: 3px;
     }
 
     .gigs > li .date .day {
         background-color: #f3f3f3;
         font-size: large;
+        padding: 3px;
     }
+
+/*My upcoming gigs page*/
 
 .following {
     list-style: none;
@@ -90,3 +93,15 @@ span.field-validation-error {
     .following .artist .btn-sm {
         float: right;
     }
+
+.gigs > li .action {
+    font-size: 15px;
+    display: none;
+}
+
+.gigs > li:hover .action{
+    display: block;
+}
+
+
+    

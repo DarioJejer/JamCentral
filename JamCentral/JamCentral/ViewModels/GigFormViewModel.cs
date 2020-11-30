@@ -1,7 +1,10 @@
-﻿using JamCentral.Models;
+﻿using JamCentral.Controllers;
+using JamCentral.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq.Expressions;
+using System.Web.Mvc;
 
 namespace JamCentral.ViewModels
 {
@@ -27,9 +30,13 @@ namespace JamCentral.ViewModels
         public IEnumerable<Genre> Genres { get; set; }
 
         public string Action 
-        {
+        {            
             get {
-                return (Id == 0) ? "Create" : "Update";   
+                Expression<Func<GigsController, ActionResult>> update = (c => c.Update(this));
+                Expression<Func<GigsController, ActionResult>> create = (c => c.Create(this));
+                var action = (Id == 0) ? create : update;
+
+                return (action.Body as MethodCallExpression).Method.Name;   
             }
         }
 

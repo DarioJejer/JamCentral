@@ -20,5 +20,7 @@ namespace JamCentral.Models
         [Required]
         [StringLength(255)]
         public string Location { get; set; }
+
+        public bool IsCanceled { get; set; }
     }
 }

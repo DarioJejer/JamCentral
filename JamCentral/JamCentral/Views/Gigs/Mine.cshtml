@@ -14,14 +14,19 @@
                 <div class="day">@gig.Date.ToString("d ")</div>
             </div>
             <div class="details">
-                <span class="artist">
-                    @gig.Location
-                </span>
+                <span class="artist">@gig.Location</span>
                 <span class="genre">@gig.Genre.Name</span>
-                <div class="action">
-                    <a href="@Url.Action("Edit", "Gigs", new { gigId = gig.Id})">Edit</a> | 
-                    <a href="#" class="js-cancel-gig" data-gig-id="@gig.Id">Cancel</a>
-                </div>
+                @if (gig.IsCanceled)
+                {
+                    <span>Canceled</span>
+                }
+                else
+                {
+                    <div class="action">
+                        <a href="@Url.Action("Edit", "Gigs", new { gigId = gig.Id})">Edit</a> |
+                        <a href="#" class="js-cancel-gig" data-gig-id="@gig.Id">Cancel</a>
+                    </div>
+                }
             </div>
         </li>
     }

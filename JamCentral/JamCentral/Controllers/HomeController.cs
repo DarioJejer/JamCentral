@@ -21,7 +21,7 @@ namespace JamCentral.Controllers
             var gigs = _context.Gigs
                 .Include(m => m.Artist)
                 .Include(m => m.Genre)
-                .Where(g => g.Date > DateTime.Now)
+                .Where(g => g.Date > DateTime.Now && !g.IsCanceled)
                 .ToList();
 
             var viewModel = new GigsViewModel

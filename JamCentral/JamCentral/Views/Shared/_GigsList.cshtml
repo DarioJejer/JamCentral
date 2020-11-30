@@ -20,6 +20,10 @@
                     }
                 </span>
                 <span class="genre">@gig.Genre.Name</span>
+                @if (gig.IsCanceled)
+                {
+                    <span>Canceled</span>
+                }
                 @if (Model.showActions)
                 {
                     <button data-gig-id="@gig.Id" class="btn btn-light btn-sm float-right js-toggle-attendance">Going?</button>

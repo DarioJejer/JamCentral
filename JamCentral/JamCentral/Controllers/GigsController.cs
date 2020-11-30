@@ -121,7 +121,10 @@ namespace JamCentral.Controllers
         public ActionResult Mine()
         {
             var userId = User.Identity.GetUserId();
-            var gigs = _context.Gigs.Where(g => g.ArtistId == userId).Include(g => g.Genre).ToList();
+            var gigs = _context.Gigs
+                .Where(g => g.ArtistId == userId)
+                .Include(g => g.Genre)
+                .ToList();
 
             return View(gigs);
         }        

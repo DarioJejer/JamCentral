@@ -228,6 +228,10 @@
     <Compile Include="Migrations\202011301554598_AddIsCanceledPropertyOnGigsTable.Designer.cs">
       <DependentUpon>202011301554598_AddIsCanceledPropertyOnGigsTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012011139333_AddNotificationAndUserNotificationTables.cs" />
+    <Compile Include="Migrations\202012011139333_AddNotificationAndUserNotificationTables.Designer.cs">
+      <DependentUpon>202012011139333_AddNotificationAndUserNotificationTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attendence.cs" />
@@ -236,6 +240,9 @@
     <Compile Include="Models\Gig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NotificationFeed\Notification.cs" />
+    <Compile Include="Models\NotificationFeed\NotificationType.cs" />
+    <Compile Include="Models\NotificationFeed\UserNotification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\FutureDate.cs" />
@@ -387,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011301554598_AddIsCanceledPropertyOnGigsTable.resx">
       <DependentUpon>202011301554598_AddIsCanceledPropertyOnGigsTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012011139333_AddNotificationAndUserNotificationTables.resx">
+      <DependentUpon>202012011139333_AddNotificationAndUserNotificationTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

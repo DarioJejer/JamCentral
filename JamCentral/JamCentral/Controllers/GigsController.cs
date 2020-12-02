@@ -40,17 +40,27 @@ namespace JamCentral.Controllers
                 return View("GigForm", viewModel);
             }
 
+            var artistId = User.Identity.GetUserId();
+
             var gig = new Gig
             {
                 Location = viewModel.Location,
                 Date = viewModel.GetDateTime(),
                 GenreId = viewModel.GenreId,
-                ArtistId = User.Identity.GetUserId()
+                ArtistId = artistId
             };
 
             _context.Gigs.Add(gig);
 
-            _context.SaveChanges();
+            var followers = _context.Users
+                .Include(u => u.Followers.Select(f => f.User))
+                .Single(u => u.Id == artistId)
+                .Followers.Select(f => f.User)
+                .ToList();
+
+            gig.NotifyGigCreation(followers);
+
+            _context.SaveChanges();            
 
             return RedirectToAction("Mine", "Gigs");
         }

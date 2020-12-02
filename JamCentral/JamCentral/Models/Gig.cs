@@ -29,7 +29,6 @@ namespace JamCentral.Models
 
         public void Cancel()
         {
-
             IsCanceled = true;
 
             var notification = Notification.GigCanceled(this);
@@ -52,6 +51,16 @@ namespace JamCentral.Models
             foreach (var atendee in Attendences.Select(a => a.Attendee))
             {
                 atendee.Notify(notification);
+            }
+        }
+
+        public void NotifyGigCreation(ICollection<ApplicationUser> followers)
+        {
+            var notification = Notification.GigCreated(this);
+
+            foreach (var follower in followers)
+            {
+                follower.Notify(notification);
             }
         }
     }

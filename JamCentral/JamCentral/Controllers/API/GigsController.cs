@@ -28,12 +28,7 @@ namespace JamCentral.Controllers.API
 
             gig.IsCanceled = true;
 
-            var notification = new Notification
-            {
-                NotificationDateTime = DateTime.Now,
-                Gig = gig,
-                Type = NotificationType.Canceled
-            };
+            var notification = new Notification(gig, NotificationType.Canceled);
 
             var attendees = _context.Attendences
                 .Where(a => a.GigId == gig.Id)
@@ -42,12 +37,7 @@ namespace JamCentral.Controllers.API
 
             foreach (var atendee in attendees)
             {
-                var userNotification = new UserNotification
-                {
-                    Notification = notification,
-                    User = atendee
-                };
-                _context.UserNotifications.Add(userNotification);
+                atendee.Notify(notification);                
             }
 
             //_context.Notifications.Add(notification);

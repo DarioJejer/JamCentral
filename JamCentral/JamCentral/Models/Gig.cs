@@ -27,12 +27,12 @@ namespace JamCentral.Models
 
         public ICollection<Attendence> Attendences { get; set; }
 
-        internal void Cancel()
+        public void Cancel()
         {
 
             IsCanceled = true;
 
-            var notification = new Notification(this, NotificationType.Canceled);
+            var notification = Notification.GigCanceled(this);
 
             foreach (var atendee in Attendences.Select(a => a.Attendee))
             {
@@ -40,11 +40,9 @@ namespace JamCentral.Models
             }
         }
 
-        internal void Modify(DateTime dateTime, string location, byte genreId)
+        public void Modify(DateTime dateTime, string location, byte genreId)
         {
-            var notification = new Notification(this, NotificationType.Modified);
-            notification.GigPreviousLocation = Location;
-            notification.GigPreviousDateTime = Date;
+            var notification = Notification.GigModified(this);
 
             Location = location;
             Date = dateTime;

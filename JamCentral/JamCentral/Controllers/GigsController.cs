@@ -1,5 +1,4 @@
 ﻿using JamCentral.Models;
-using JamCentral.Models.NotificationFeed;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;

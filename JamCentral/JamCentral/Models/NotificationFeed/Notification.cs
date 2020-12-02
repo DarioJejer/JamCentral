@@ -11,15 +11,15 @@ namespace JamCentral.Models.NotificationFeed
 
         public int GigId { get; set; }
         public DateTime NotificationDateTime { get; private set; }
-        public string GigPreviousLocation { get; set; }
-        public DateTime? GigPreviousDateTime { get; set; }
+        public string GigPreviousLocation { get; private set; }
+        public DateTime? GigPreviousDateTime { get; private set; }
         [Required]
         public NotificationType Type { get; private set; }
 
         protected Notification()
         {}
 
-        public Notification(Gig gig, NotificationType type)
+        private Notification(Gig gig, NotificationType type)
         {
             if (gig == null)
                 throw new ArgumentNullException("Gig");
@@ -29,6 +29,22 @@ namespace JamCentral.Models.NotificationFeed
             Gig = gig;
             Type = type;
             NotificationDateTime = DateTime.Now;
+        }
+
+        public static Notification GigCanceled(Gig gig)
+        {
+            return new Notification(gig, NotificationType.Canceled);
+        }
+        public static Notification GigCreated(Gig gig)
+        {
+            return new Notification(gig, NotificationType.Created);
+        }
+        public static Notification GigModified(Gig oldGig)
+        {
+            var notification = new Notification(oldGig, NotificationType.Modified);
+            notification.GigPreviousLocation = oldGig.Location;
+            notification.GigPreviousDateTime = oldGig.Date;
+            return notification;
         }
     }
 

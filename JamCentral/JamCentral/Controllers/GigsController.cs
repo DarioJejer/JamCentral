@@ -1,4 +1,5 @@
 ﻿using JamCentral.Models;
+using JamCentral.Models.NotificationFeed;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
@@ -106,11 +107,20 @@ namespace JamCentral.Controllers
             }
 
             var userId = User.Identity.GetUserId();
-            var gig = _context.Gigs.Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+            var gig = _context.Gigs
+                .Include(g => g.Attendences.Select(a => a.Attendee))
+                .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
 
             gig.Location = viewModel.Location;
             gig.Date = viewModel.GetDateTime();
             gig.GenreId = viewModel.GenreId;
+
+            var notification = new Notification(gig, NotificationType.Modified);
+
+            foreach (var atendee in gig.Attendences.Select(a => a.Attendee))
+            {
+                atendee.Notify(notification);
+            }
 
             _context.SaveChanges();
 

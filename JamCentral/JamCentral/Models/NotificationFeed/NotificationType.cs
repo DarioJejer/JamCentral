@@ -3,7 +3,7 @@
     public enum NotificationType
     {
         Canceled = 1,
-        Modified = 1,
-        Created = 1
+        Modified = 2,
+        Created = 3
     }
 }

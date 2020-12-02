@@ -111,16 +111,7 @@ namespace JamCentral.Controllers
                 .Include(g => g.Attendences.Select(a => a.Attendee))
                 .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
 
-            gig.Location = viewModel.Location;
-            gig.Date = viewModel.GetDateTime();
-            gig.GenreId = viewModel.GenreId;
-
-            var notification = new Notification(gig, NotificationType.Modified);
-
-            foreach (var atendee in gig.Attendences.Select(a => a.Attendee))
-            {
-                atendee.Notify(notification);
-            }
+            gig.Modify(viewModel.GetDateTime(), viewModel.Location, viewModel.GenreId);            
 
             _context.SaveChanges();
 

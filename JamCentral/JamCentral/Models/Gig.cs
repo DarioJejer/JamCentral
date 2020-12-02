@@ -39,5 +39,22 @@ namespace JamCentral.Models
                 atendee.Notify(notification);
             }
         }
+
+        internal void Modify(DateTime dateTime, string location, byte genreId)
+        {
+            var notification = new Notification(this, NotificationType.Modified);
+            notification.GigPreviousLocation = Location;
+            notification.GigPreviousDateTime = Date;
+
+            Location = location;
+            Date = dateTime;
+            GenreId = genreId;
+
+
+            foreach (var atendee in Attendences.Select(a => a.Attendee))
+            {
+                atendee.Notify(notification);
+            }
+        }
     }
 }

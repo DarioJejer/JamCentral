@@ -232,6 +232,10 @@
     <Compile Include="Migrations\202012011139333_AddNotificationAndUserNotificationTables.Designer.cs">
       <DependentUpon>202012011139333_AddNotificationAndUserNotificationTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012020150305_UpdateUserNotification.cs" />
+    <Compile Include="Migrations\202012020150305_UpdateUserNotification.Designer.cs">
+      <DependentUpon>202012020150305_UpdateUserNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Attendence.cs" />
@@ -397,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012011139333_AddNotificationAndUserNotificationTables.resx">
       <DependentUpon>202012011139333_AddNotificationAndUserNotificationTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012020150305_UpdateUserNotification.resx">
+      <DependentUpon>202012020150305_UpdateUserNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

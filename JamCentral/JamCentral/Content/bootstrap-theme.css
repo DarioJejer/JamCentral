@@ -39,7 +39,25 @@ h2, .h2 {
             border-bottom: 3px solid #fff;
             color: #fff;
         }
+.navbar-inverse .notifications {
+    position: relative;
+}
 
+    .navbar-inverse .notifications .notif-icon {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+    }
+        .navbar-inverse .notifications .notif-icon:hover, .navbar-inverse .notifications .notif-icon:focus {
+            border-bottom: 0px;
+            border-bottom-color: transparent
+        }
+
+    .navbar-inverse .notifications .badge {
+        position: absolute;
+        top: -4px;
+    }
+   
     .navbar-inverse .navbar-brand {
         color: #fff;
     }

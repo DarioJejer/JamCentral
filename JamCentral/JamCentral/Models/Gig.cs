@@ -23,7 +23,7 @@ namespace JamCentral.Models
         [StringLength(255)]
         public string Location { get; set; }
 
-        public bool IsCanceled { get; set; }
+        public bool IsCanceled { get; private set; }
 
         public ICollection<Attendence> Attendences { get; set; }
 

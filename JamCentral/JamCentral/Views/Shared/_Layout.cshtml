@@ -21,22 +21,48 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script type="text/x-handlebars-template" id="notifications-template">
+        <ul>
+            <% _.each(notifications, function(notification){
+                %>
+            <li>
+                <% if(notification.type == 1) {%>
+                <%= notification.gig.artist.name%> has cancel the gig at <%= notification.gig.location%> at <%=notification.gig.date%>
+                <% }%>
+
+                <% if(notification.type == 2) {%>
+                <%= notification.gig.artist.name%> has modify the gig from <%= notification.GigPreviousLocation%> the <%=notification.GigPreviousDateTime%> to <%= notification.gig.location%> at <%=notification.gig.date%>
+                <% }%>
+
+                <% if(notification.type == 3) {%>
+                <%= notification.gig.artist.name%> has added a new gig at <%= notification.gig.location%> at <%=notification.gig.date%>
+                <% }%>
+            </li>
+                <%
+            })%>
+        </ul>
+    </script>
+
     <script>
         $(document).ready(function () {
             $.getJSON("/api/notifications", function (notifications) {
                 $(".js-notifications-count")
                     .text(notifications.length)
                     .removeClass("hide");
+
+                $(".notifications").popover({
+                    html: true,
+                    title: "Notifications",
+                    content: function () {
+                        var compiled = _.template($("#notifications-template").html());
+                        var html = compiled({notifications: notifications});
+
+                        return html;
+                    },
+                    placement: "bottom"
+                });
             });
 
-            $(".notifications").popover({
-                html: true,
-                title: "Notifications",
-                content: function () {
-                    return "Test";
-                },
-                placement: "bottom"
-            });
         });
     </script>
 </body>

@@ -27,15 +27,15 @@
                 %>
             <li>
                 <% if(notification.type == 1) {%>
-                <span class="hightlight"><%= notification.gig.artist.name%></span> has cancel the gig at <%= notification.gig.location%> the <%=notification.gig.date%>
+                <span class="highlight"><%= notification.gig.artist.name%></span> has cancel the gig at <%= notification.gig.location%> the <%= moment(notification.gig.date).format("D MMM HH:mm")%>
                 <% }%>
 
                 <% if(notification.type == 2) {%>
-                <span class="hightlight"><%= notification.gig.artist.name%></span> has modify the gig from <%= notification.gigPreviousLocation%> the <%=notification.gigPreviousDateTime%> to <%= notification.gig.location%> the <%=notification.gig.date%>
+                <span class="highlight"><%= notification.gig.artist.name%></span> has modify the gig from <%= notification.gigPreviousLocation%> the <%=moment(notification.gigPreviousDateTime).format("D MMM HH:mm")%> to <%= notification.gig.location%> the <%= moment(notification.gig.date).format("D MMM HH:mm")%>
                 <% }%>
 
                 <% if(notification.type == 3) {%>
-                <span class="hightlight"><%= notification.gig.artist.name%></span> has added a new gig at <%= notification.gig.location%> the <%=notification.gig.date%>
+                <span class="highlight"><%= notification.gig.artist.name%></span> has added a new gig at <%= notification.gig.location%> the <%=moment(notification.gig.date).format("D MMM HH:mm")%>
                 <% }%>
             </li>
                 <%

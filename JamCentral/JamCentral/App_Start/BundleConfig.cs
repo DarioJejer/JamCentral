@@ -22,7 +22,8 @@ namespace JamCentral
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap.bundle.min.js",
                       "~/Scripts/bootbox.min.js",
-                      "~/Scripts/underscore-min.js"
+                      "~/Scripts/underscore-min.js",
+                      "~/Scripts/moment.min.js"
                       ));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

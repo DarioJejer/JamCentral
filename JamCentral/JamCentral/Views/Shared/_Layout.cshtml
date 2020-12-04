@@ -22,20 +22,20 @@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script type="text/x-handlebars-template" id="notifications-template">
-        <ul>
+        <ul class="notifications">
             <% _.each(notifications, function(notification){
                 %>
             <li>
                 <% if(notification.type == 1) {%>
-                <%= notification.gig.artist.name%> has cancel the gig at <%= notification.gig.location%> at <%=notification.gig.date%>
+                <span class="hightlight"><%= notification.gig.artist.name%></span> has cancel the gig at <%= notification.gig.location%> the <%=notification.gig.date%>
                 <% }%>
 
                 <% if(notification.type == 2) {%>
-                <%= notification.gig.artist.name%> has modify the gig from <%= notification.gigPreviousLocation%> the <%=notification.gigPreviousDateTime%> to <%= notification.gig.location%> at <%=notification.gig.date%>
+                <span class="hightlight"><%= notification.gig.artist.name%></span> has modify the gig from <%= notification.gigPreviousLocation%> the <%=notification.gigPreviousDateTime%> to <%= notification.gig.location%> the <%=notification.gig.date%>
                 <% }%>
 
                 <% if(notification.type == 3) {%>
-                <%= notification.gig.artist.name%> has added a new gig at <%= notification.gig.location%> at <%=notification.gig.date%>
+                <span class="hightlight"><%= notification.gig.artist.name%></span> has added a new gig at <%= notification.gig.location%> the <%=notification.gig.date%>
                 <% }%>
             </li>
                 <%

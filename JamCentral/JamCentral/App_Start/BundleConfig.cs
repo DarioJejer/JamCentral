@@ -20,6 +20,7 @@ namespace JamCentral
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/bootstrap.bundle.min.js",
                       "~/Scripts/bootbox.min.js"
                       ));
 

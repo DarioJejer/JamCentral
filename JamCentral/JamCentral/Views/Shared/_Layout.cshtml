@@ -31,7 +31,7 @@
                 <% }%>
 
                 <% if(notification.type == 2) {%>
-                <%= notification.gig.artist.name%> has modify the gig from <%= notification.GigPreviousLocation%> the <%=notification.GigPreviousDateTime%> to <%= notification.gig.location%> at <%=notification.gig.date%>
+                <%= notification.gig.artist.name%> has modify the gig from <%= notification.gigPreviousLocation%> the <%=notification.gigPreviousDateTime%> to <%= notification.gig.location%> at <%=notification.gig.date%>
                 <% }%>
 
                 <% if(notification.type == 3) {%>
@@ -46,6 +46,20 @@
     <script>
         $(document).ready(function () {
             $.getJSON("/api/notifications", function (notifications) {
+                if (notifications.length == 0) {
+                    $(".fa-bell").removeClass("fas")
+                        .addClass("far");
+                    $(".notifications").popover({
+                        html: true,
+                        title: "Notifications",
+                        content: function () {
+                            return "Sorry, you got no news for today"
+                        },
+                        placement: "bottom"
+                    });
+                    return;
+                }
+
                 $(".js-notifications-count")
                     .text(notifications.length)
                     .removeClass("hide");

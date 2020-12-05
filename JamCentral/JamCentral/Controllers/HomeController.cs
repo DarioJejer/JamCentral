@@ -1,5 +1,8 @@
-﻿using JamCentral.Models;
+﻿using AutoMapper;
+using JamCentral.Dtos;
+using JamCentral.Models;
 using JamCentral.ViewModels;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Data.Entity;
 using System.Linq;
@@ -24,12 +27,29 @@ namespace JamCentral.Controllers
                 .Where(g => g.Date > DateTime.Now && !g.IsCanceled)
                 .ToList();
 
+            var userId = User.Identity.GetUserId();
+
+            var user = new ApplicationUser();
+
+            if (userId != null)
+            {
+                user = _context.Users
+                    .Include(u => u.Followees)
+                    .Include(u => u.Attendences)
+                    .Single(u => u.Id == userId);
+            }
+
             var viewModel = new GigsViewModel
             {
                 upcomingGigs = gigs,
-                showActions = User.Identity.IsAuthenticated
+                showActions = User.Identity.IsAuthenticated,
+                User = Mapper.Map<ApplicationUserDto>(user),
+                Title = "Upcoming Gigs for this season",
+                Header = "Home Page"
+                
             };
-            return View(viewModel);
+
+            return View("../Gigs/GigsList", viewModel);
         }
     }
 }

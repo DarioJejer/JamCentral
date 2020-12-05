@@ -1,4 +1,6 @@
-﻿using JamCentral.Models;
+﻿using AutoMapper;
+using JamCentral.Dtos;
+using JamCentral.Models;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
@@ -75,13 +77,21 @@ namespace JamCentral.Controllers
                 .Include(g => g.Genre)
                 .ToList();
 
+            var user = _context.Users
+                    .Include(u => u.Followees)
+                    .Include(u => u.Attendences)
+                    .Single(u => u.Id == userId);
+
             var viewModel = new GigsViewModel
             {
                 upcomingGigs = gigs,
-                showActions = false
+                showActions = true,
+                User = Mapper.Map<ApplicationUserDto>(user),
+                Title = "Gigs that you are attending",
+                Header= "My calendar"
             };
 
-            return View(viewModel);
+            return View("GigsList", viewModel);
         }
 
         [Authorize]

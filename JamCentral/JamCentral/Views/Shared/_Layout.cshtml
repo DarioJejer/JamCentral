@@ -48,22 +48,27 @@
                 if (notifications.length == 0) {
                     $(".fa-bell").removeClass("fas")
                         .addClass("far");
-                    $(".notifications").popover({
-                        html: true,
-                        title: "Notifications",
-                        content: function () {
-                            return "Sorry, you got no news for today"
-                        },
-                        placement: "bottom"
+                    $.getJSON("/api/oldnotifications", function (oldnotifications) {
+                        $(".notif-icon").popover({
+                            html: true,
+                            title: "Notifications",
+                            content: function () {
+                                var compiled = _.template($("#notifications-template").html());
+                                var html = compiled({ notifications: oldnotifications });
+
+                                return "<p>Sorry, you got no news for today, but this are the last Notifications:</p>" + html;
+                            },
+                            placement: "bottom"
+                        });
                     });
                     return;
-                }
+                }                
 
                 $(".js-notifications-count")
                     .text(notifications.length)
                     .removeClass("hide");
 
-                $(".notifications").popover({
+                $(".notif-icon").popover({
                     html: true,
                     title: "Notifications",
                     content: function () {
@@ -89,12 +94,7 @@
                         alert("Something failed!");
                     });
                 });
-
-                $('.popover-dismiss').popover({
-                    trigger: 'focus'
-                })
             });
-
         });
     </script>
 </body>

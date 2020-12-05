@@ -45,6 +45,10 @@ namespace JamCentral.Models
                 .WithRequired(f => f.User)
                 .WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.Attendences)
+                .WithRequired(a => a.Attendee);
+
             base.OnModelCreating(modelBuilder);
         }
     }

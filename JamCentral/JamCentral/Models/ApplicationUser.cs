@@ -17,6 +17,7 @@ namespace JamCentral.Models
         public string Name { get; set; }
         public ICollection<Following> Followers { get; set; }
         public ICollection<Following> Followees { get; set; }
+        public ICollection<Attendence> Attendences { get; set; }
         public ICollection<UserNotification> UserNotifications { get; set; }
         public ApplicationUser()
         {

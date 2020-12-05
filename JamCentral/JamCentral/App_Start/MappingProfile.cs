@@ -12,6 +12,8 @@ namespace JamCentral.App_Start
             Mapper.CreateMap<ApplicationUser, ApplicationUserDto>();
             Mapper.CreateMap<Gig, GigDto>();
             Mapper.CreateMap<Notification, NotificationDto>();
+            Mapper.CreateMap<Following, FollowingDto>();
+            Mapper.CreateMap<Attendence, AttendenceDto>();
         }
         
     }

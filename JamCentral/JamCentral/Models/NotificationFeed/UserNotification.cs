@@ -15,7 +15,7 @@ namespace JamCentral.Models.NotificationFeed
         [Key]
         [Column(Order = 2)]
         public int NotificationId { get; private set; }
-        public bool BeenRead { get; set; }
+        public bool BeenRead { get; private set; }
 
         protected UserNotification()
         {
@@ -36,5 +36,9 @@ namespace JamCentral.Models.NotificationFeed
             User = user;
         }
 
+        internal void Read()
+        {
+            BeenRead = true;
+        }
     }
 }

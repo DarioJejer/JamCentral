@@ -41,6 +41,7 @@ h2, .h2 {
         }
 .navbar-inverse .notifications {
     position: relative;
+    width: 50px;
 }
 
     .navbar-inverse .notifications .notif-icon {

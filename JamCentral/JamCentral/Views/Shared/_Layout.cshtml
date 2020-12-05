@@ -18,8 +18,7 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
     <script type="text/x-handlebars-template" id="notifications-template">
         <ul class="notifications">
@@ -74,7 +73,26 @@
                         return html;
                     },
                     placement: "bottom"
+                }).on("shown.bs.popover", function () {
+                    $.ajax({
+                        url: '/api/notifications',
+                        method: 'PUT',
+                    })
+                    .done(function () {
+                        $(".js-notifications-count")
+                            .text("")
+                            .addClass("hide");
+                        $(".fa-bell").removeClass("fas")
+                            .addClass("far");
+                    })
+                    .fail(function () {
+                        alert("Something failed!");
+                    });
                 });
+
+                $('.popover-dismiss').popover({
+                    trigger: 'focus'
+                })
             });
 
         });

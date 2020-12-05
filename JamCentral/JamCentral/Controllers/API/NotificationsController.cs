@@ -32,5 +32,21 @@ namespace JamCentral.Controllers.API
 
             return notifications.Select(Mapper.Map<Notification, NotificationDto>);
         }
+
+        [Authorize]
+        [HttpPut]
+        public IHttpActionResult MarkNotifcationsAsRead()
+        {
+            var userId = User.Identity.GetUserId();
+            var userNotifications = _context.UserNotifications
+                .Where(un => un.UserId == userId && !un.BeenRead)
+                .ToList();
+
+            userNotifications.ForEach(un => un.Read());
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
     }
 }

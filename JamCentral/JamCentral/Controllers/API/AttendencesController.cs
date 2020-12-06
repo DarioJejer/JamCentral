@@ -15,6 +15,8 @@ namespace JamCentral.Controllers.API
         {
             _context = new ApplicationDbContext();
         }
+
+        [Authorize]
         [HttpPost]
         public IHttpActionResult Attend(AttendenceDto dto)
         {
@@ -31,6 +33,23 @@ namespace JamCentral.Controllers.API
             };
 
             _context.Attendences.Add(attendence);
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+        [Authorize]
+        [HttpDelete]
+        public IHttpActionResult Unbook(AttendenceDto dto)
+        {
+            var userId = User.Identity.GetUserId();
+            var recordInDb = _context.Attendences.SingleOrDefault(a => a.AttendeeId == userId && a.GigId == dto.GigId);
+
+            if (recordInDb == null)
+                return BadRequest("The atendence doesn't exist");
+
+            _context.Attendences.Remove(recordInDb);
+
             _context.SaveChanges();
 
             return Ok();

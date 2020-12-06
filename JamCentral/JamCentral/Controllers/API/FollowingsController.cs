@@ -42,7 +42,7 @@ namespace JamCentral.Controllers.API
         }
 
         [HttpDelete]
-        public void DeleteFolowing(FollowingDto dto)
+        public void UnFollow(FollowingDto dto)
         {
             var userId = User.Identity.GetUserId();
             var following = _context.Followings

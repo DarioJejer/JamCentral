@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<JamCentral.Models.ApplicationUser>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Followings";
 }
 
 <h2>Followed Artists</h2>
@@ -16,7 +16,7 @@
         <li>
             <div class="artist">
                 <text class="nick-name">@artist.Name</text>
-                <span id="unfollow" data-artist-id="@artist.Id" class="btn btn-primary btn-sm">Unfollow</span>
+                <span id="unfollow" data-artist-id="@artist.Id" class="btn btn-light btn-sm">Unfollow</span>
             </div>
         </li>
     }
@@ -35,7 +35,7 @@
                 })
                 .done(function () {
                     button
-                        .removeClass("btn-primary")
+                        .removeClass("btn-light")
                         .addClass("btn-info")
                         .text("Unfollowed");
                 })

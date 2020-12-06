@@ -91,7 +91,7 @@ namespace JamCentral.Controllers
                 Header= "My calendar"
             };
 
-            return View("GigsList", viewModel);
+            return View(viewModel);
         }
 
         [Authorize]

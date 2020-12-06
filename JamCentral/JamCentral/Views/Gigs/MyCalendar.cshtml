@@ -35,14 +35,7 @@
                 }
                 @if (Model.showActions)
                 {
-                    if (Model.User.Attendences.Any(a => a.GigId == gig.Id))
-                    {
-                        <button class="btn btn-light btn-sm float-right js-toggle-cancel-booking">Booked</button>
-                    }
-                    else
-                    {
-                        <button data-gig-id="@gig.Id" class="btn btn-light btn-sm float-right js-toggle-attendance">Book</button>
-                    }
+                    <button data-gig-id="@gig.Id" class="btn btn-light btn-sm float-right js-toggle-cancel-booking">Unbook</button>
                 }
             </div>
         </li>
@@ -53,19 +46,24 @@
 {
     <script>
         $(document).ready(function () {
-            $(".js-toggle-attendance").click(function(e) {
+            $(".js-toggle-cancel-booking").click(function(e) {
                 var button = $(e.target);
-                $.post("/api/attendences", { GigId: button.attr("data-gig-id") })
-                    .done(function(){
-                        button
-                            .removeClass("btn-light")
-                            .addClass("btn-info")
-                            .text("Going");
+                $.ajax({
+                    url: "/api/attendences",
+                    method: "DELETE",
+                    data: { GigId: button.attr("data-gig-id") }
                     })
-                    .fail(function(){
-                        alert("Something failed!");
-                    });
+                .done(function(){
+                    button
+                        .removeClass("btn-light")
+                        .addClass("btn-info")
+                        .text("Unbooked");
+                })
+                .fail(function(){
+                    alert("Something failed!");
+                });
             });
+
             $(".js-toggle-follow").click(function(e) {
                 var link = $(e.target);
                 $.post("/api/followings", { ArtistId: link.attr("data-artist-id") })
@@ -80,4 +78,3 @@
         });
     </script>
 }
-

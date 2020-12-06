@@ -11,5 +11,6 @@ namespace JamCentral.ViewModels
         public ApplicationUserDto User { get; set; }
         public IEnumerable<Gig> upcomingGigs { get; set; }
         public bool showActions { get; set; }
+        public string Search { get; set; }
     }
 }

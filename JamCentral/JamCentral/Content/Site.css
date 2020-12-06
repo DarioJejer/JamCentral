@@ -251,3 +251,14 @@ ul.notifications {
     ul.notifications > li .highlight {
         font-weight: bold;
     }
+
+
+/*Search Bar Icon*/
+
+.input-group .input-group-text .btn {
+    padding: 0px;
+}
+
+.input-group .input-group-text .btn:focus {
+    box-shadow: none;
+}

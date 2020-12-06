@@ -3,6 +3,7 @@ using JamCentral.Dtos;
 using JamCentral.Models;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -147,6 +148,6 @@ namespace JamCentral.Controllers
                 .ToList();
 
             return View(gigs);
-        }        
+        }       
     }
 }

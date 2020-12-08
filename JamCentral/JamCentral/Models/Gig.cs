@@ -38,6 +38,17 @@ namespace JamCentral.Models
                 atendee.Notify(notification);
             }
         }
+        public void Uncancel()
+        {
+            IsCanceled = false;
+
+            //var notification = new Notification();
+
+            //foreach (var follower in Artist.Followers)
+            //{
+            //    follower.User.Notify(notification);
+            //}
+        }
 
         public void Modify(DateTime dateTime, string location, byte genreId, List<ApplicationUser> followers)
         {

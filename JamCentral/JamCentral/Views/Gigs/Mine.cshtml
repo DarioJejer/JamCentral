@@ -19,6 +19,9 @@
                 @if (gig.IsCanceled)
                 {
                     <span>Canceled</span>
+                    <div class="action">
+                        <a href="#" class="js-uncancel-gig" data-gig-id="@gig.Id">Uncancel</a>
+                    </div>
                 }
                 else
                 {
@@ -70,6 +73,23 @@
                     }
                 });
             });
+
+            $(".js-uncancel-gig").click(function (e) {
+                var link = $(e.target);
+                $.ajax({
+                    url: "/api/gigs/" + link.attr("data-gig-id"),
+                    method: "PUT"
+                })
+                .done(function () {
+                    link.text("Uncanceled");
+                    link.parent("div").removeClass("action");
+                    $("div .details span:nth-child(3)").remove();
+                })
+                .fail(function () {
+                    alert("Something failed!");
+                });
+                
+            })
         });
     </script>   
 }

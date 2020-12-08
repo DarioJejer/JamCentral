@@ -185,11 +185,10 @@ span.field-validation-error {
     }
 
 .gigs > li .date {
-    background-color: red;
+    background-color: #008effe0;
     text-align: center;
     width: 60px;
     border-radius: 10px;
-    
 }
     .gigs > li .date .month {
         color:white;

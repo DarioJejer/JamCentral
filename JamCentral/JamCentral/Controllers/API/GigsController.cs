@@ -16,6 +16,27 @@ namespace JamCentral.Controllers.API
             _context = new ApplicationDbContext();
         }
 
+        [Authorize]
+        [HttpPut]
+        public IHttpActionResult Uncancel(int id)
+        {
+            var userId = User.Identity.GetUserId();
+
+            var gig = _context.Gigs
+                .Include(g => g.Artist)
+                .SingleOrDefault(g => g.Id == id && g.ArtistId == userId && g.IsCanceled);
+
+            if (gig == null)
+                return NotFound();
+
+            gig.Uncancel();
+
+            _context.SaveChanges();
+
+            return Ok();
+        }
+
+        [Authorize]
         [HttpDelete]
         public IHttpActionResult Cancel(int id)
         {

@@ -131,7 +131,12 @@ namespace JamCentral.Controllers
                 .Include(g => g.Attendences.Select(a => a.Attendee))
                 .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
 
-            gig.Modify(viewModel.GetDateTime(), viewModel.Location, viewModel.GenreId);            
+            var followers = _context.Followings
+                .Where(f => f.ArtistId == gig.ArtistId)
+                .Select(f => f.User)
+                .ToList();
+
+            gig.Modify(viewModel.GetDateTime(), viewModel.Location, viewModel.GenreId, followers);            
 
             _context.SaveChanges();
 

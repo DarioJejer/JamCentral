@@ -252,7 +252,6 @@ ServiceFabricBackup/
 *.rptproj.bak
 
 # SQL Server files
-*.ldf
 *.ndf
 
 # Business Intelligence projects
@@ -347,3 +346,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/JamCentral/JamCentral/App_Data/aspnet-JamCentral-20201124085257_log.ldf

@@ -45,14 +45,13 @@
 @section scripts
 {
     <script>
-        $(document).ready(function () {
-            
+        $(document).ready(function () {           
 
             $(".js-toggle-cancel-booking").click(function (e) {
                 var button = $(e.target);
                 bootbox.dialog({
                     title: 'Confirm',
-                    message: "Are you sure you want to Uncancel this gig?",
+                    message: "Are you sure you want to Unbook this gig?",
                     buttons: {
                         cancel: {
                             label: "No",

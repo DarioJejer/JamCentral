@@ -46,6 +46,10 @@ namespace JamCentral.Models.NotificationFeed
             notification.GigPreviousDateTime = oldGig.Date;
             return notification;
         }
+        public static Notification GigUncanceled(Gig gig)
+        {
+            return new Notification(gig, NotificationType.Uncanceled);
+        }
     }
 
 

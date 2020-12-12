@@ -42,12 +42,12 @@ namespace JamCentral.Models
         {
             IsCanceled = false;
 
-            //var notification = new Notification();
+            var notification = Notification.GigUncanceled(this);
 
-            //foreach (var follower in Artist.Followers)
-            //{
-            //    follower.User.Notify(notification);
-            //}
+            foreach (var follower in Artist.Followers.Select(f => f.User))
+            {
+                follower.Notify(notification);
+            }
         }
 
         public void Modify(DateTime dateTime, string location, byte genreId, List<ApplicationUser> followers)

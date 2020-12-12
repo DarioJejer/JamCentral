@@ -4,6 +4,7 @@
     {
         Canceled = 1,
         Modified = 2,
-        Created = 3
+        Created = 3,
+        Uncanceled = 4
     }
 }

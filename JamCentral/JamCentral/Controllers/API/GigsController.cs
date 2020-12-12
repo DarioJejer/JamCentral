@@ -23,7 +23,7 @@ namespace JamCentral.Controllers.API
             var userId = User.Identity.GetUserId();
 
             var gig = _context.Gigs
-                .Include(g => g.Artist)
+                .Include(g => g.Artist.Followers.Select(f => f.User))
                 .SingleOrDefault(g => g.Id == id && g.ArtistId == userId && g.IsCanceled);
 
             if (gig == null)

@@ -46,22 +46,43 @@
 {
     <script>
         $(document).ready(function () {
-            $(".js-toggle-cancel-booking").click(function(e) {
+            
+
+            $(".js-toggle-cancel-booking").click(function (e) {
                 var button = $(e.target);
-                $.ajax({
-                    url: "/api/attendences",
-                    method: "DELETE",
-                    data: { GigId: button.attr("data-gig-id") }
-                    })
-                .done(function(){
-                    button
-                        .removeClass("btn-light")
-                        .addClass("btn-info")
-                        .text("Unbooked");
-                })
-                .fail(function(){
-                    alert("Something failed!");
-                });
+                bootbox.dialog({
+                    title: 'Confirm',
+                    message: "Are you sure you want to Uncancel this gig?",
+                    buttons: {
+                        cancel: {
+                            label: "No",
+                            className: 'btn-default',
+                            callback: function () {
+                                bootbox.hideAll();
+                            }
+                        },
+                        ok: {
+                            label: "Yes",
+                            className: 'btn-danger',
+                            callback: function () {
+                                $.ajax({
+                                    url: "/api/attendences",
+                                    method: "DELETE",
+                                    data: { GigId: button.attr("data-gig-id") }
+                                })
+                                .done(function () {
+                                    button
+                                        .removeClass("btn-light")
+                                        .addClass("btn-info")
+                                        .text("Unbooked");
+                                })
+                                .fail(function () {
+                                    alert("Something failed!");
+                                });
+                            }
+                        }
+                    }
+                });                
             });
 
             $(".js-toggle-follow").click(function(e) {

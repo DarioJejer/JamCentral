@@ -128,15 +128,11 @@ namespace JamCentral.Controllers
 
             var userId = User.Identity.GetUserId();
             var gig = _context.Gigs
+                .Include(g => g.Artist.Followers.Select(f => f.User))
                 .Include(g => g.Attendences.Select(a => a.Attendee))
                 .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
 
-            var followers = _context.Followings
-                .Where(f => f.ArtistId == gig.ArtistId)
-                .Select(f => f.User)
-                .ToList();
-
-            gig.Modify(viewModel.GetDateTime(), viewModel.Location, viewModel.GenreId, followers);            
+            gig.Modify(viewModel.GetDateTime(), viewModel.Location, viewModel.GenreId);            
 
             _context.SaveChanges();
 

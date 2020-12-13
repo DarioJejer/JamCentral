@@ -62,7 +62,7 @@ namespace JamCentral.Models
             }
         }
 
-        public void Modify(DateTime dateTime, string location, byte genreId, List<ApplicationUser> followers)
+        public void Modify(DateTime dateTime, string location, byte genreId)
         {
             var notification = Notification.GigModified(this);
 
@@ -70,14 +70,14 @@ namespace JamCentral.Models
             Date = dateTime;
             GenreId = genreId;
 
-            foreach (var follower in followers)
+            foreach (var follower in Artist.Followers.Select(f => f.User))
             {
                 follower.Notify(notification);
             }
 
             foreach (var atendee in Attendences.Select(a => a.Attendee))
             {
-                if (!followers.Select(f => f.Id).Any(i => i == atendee.Id))
+                if (!Artist.Followers.Select(f => f.UserId).Any(i => i == atendee.Id))
                     atendee.Notify(notification);
             }
         }

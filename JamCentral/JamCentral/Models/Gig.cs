@@ -33,9 +33,15 @@ namespace JamCentral.Models
 
             var notification = Notification.GigCanceled(this);
 
+            foreach (var follower in Artist.Followers.Select(f => f.User))
+            {
+                follower.Notify(notification);
+            }
+
             foreach (var atendee in Attendences.Select(a => a.Attendee))
             {
-                atendee.Notify(notification);
+                if (!Artist.Followers.Select(f => f.UserId).Any(i => i == atendee.Id))
+                    atendee.Notify(notification);
             }
         }
         public void Uncancel()
@@ -47,6 +53,12 @@ namespace JamCentral.Models
             foreach (var follower in Artist.Followers.Select(f => f.User))
             {
                 follower.Notify(notification);
+            }
+
+            foreach (var atendee in Attendences.Select(a => a.Attendee))
+            {
+                if (!Artist.Followers.Select(f => f.UserId).Any(i => i == atendee.Id))
+                    atendee.Notify(notification);
             }
         }
 

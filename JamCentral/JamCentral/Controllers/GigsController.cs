@@ -70,6 +70,7 @@ namespace JamCentral.Controllers
                 .Select(a => a.Gig)
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
+                .OrderBy(g => g.Date)
                 .ToList();
 
             var user = _context.Users
@@ -140,6 +141,7 @@ namespace JamCentral.Controllers
             var gigs = _context.Gigs
                 .Where(g => g.ArtistId == userId)
                 .Include(g => g.Genre)
+                .OrderBy(g => g.Date)
                 .ToList();
 
             return View(gigs);

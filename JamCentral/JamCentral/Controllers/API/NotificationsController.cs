@@ -27,6 +27,7 @@ namespace JamCentral.Controllers.API
                 .Where(un => un.UserId == userId && !un.BeenRead)
                 .Select(un => un.Notification)
                 .Include(n => n.Gig.Artist)
+                .OrderBy(n => n.NotificationDateTime)
                 .ToList();
 
 

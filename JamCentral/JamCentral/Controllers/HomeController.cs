@@ -25,6 +25,7 @@ namespace JamCentral.Controllers
                 .Include(m => m.Artist)
                 .Include(m => m.Genre)
                 .Where(g => g.Date > DateTime.Now && !g.IsCanceled)
+                .OrderBy(g => g.Date)
                 .ToList();
 
             var userId = User.Identity.GetUserId();

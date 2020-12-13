@@ -45,9 +45,9 @@ namespace JamCentral.Controllers.API
             var gig = _context.Gigs
                 .Include(g => g.Attendences.Select(a => a.Attendee))
                 .Include(g => g.Artist.Followers.Select(f => f.User))
-                .Single(g => g.Id == id && g.ArtistId == userId);
+                .SingleOrDefault(g => g.Id == id && g.ArtistId == userId && !g.IsCanceled);
 
-            if (gig.IsCanceled)          
+            if (gig == null)          
                 return NotFound();
 
             gig.Cancel();

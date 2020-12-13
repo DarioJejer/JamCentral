@@ -8,9 +8,10 @@ namespace JamCentral.Models.NotificationFeed
         public int Id { get; private set; }
         [Required]
         public Gig Gig { get; private set; }
-
         public int GigId { get; set; }
         public DateTime NotificationDateTime { get; private set; }
+        public string GigNewLocation { get; private set; }
+        public DateTime? GigNewDateTime { get; private set; }
         public string GigPreviousLocation { get; private set; }
         public DateTime? GigPreviousDateTime { get; private set; }
         [Required]
@@ -39,11 +40,13 @@ namespace JamCentral.Models.NotificationFeed
         {
             return new Notification(gig, NotificationType.Created);
         }
-        public static Notification GigModified(Gig oldGig)
+        public static Notification GigModified(Gig oldGig, string location, DateTime dateTime)
         {
             var notification = new Notification(oldGig, NotificationType.Modified);
             notification.GigPreviousLocation = oldGig.Location;
             notification.GigPreviousDateTime = oldGig.Date;
+            notification.GigNewLocation = location;
+            notification.GigNewDateTime = dateTime;
             return notification;
         }
         public static Notification GigUncanceled(Gig gig)

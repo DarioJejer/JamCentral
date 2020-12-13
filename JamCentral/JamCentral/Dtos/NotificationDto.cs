@@ -7,6 +7,8 @@ namespace JamCentral.Dtos
     {
         public GigDto Gig { get; set; }
         public DateTime NotificationDateTime { get; set; }
+        public string GigNewLocation { get; private set; }
+        public DateTime? GigNewDateTime { get; private set; }
         public string GigPreviousLocation { get; set; }
         public DateTime? GigPreviousDateTime { get; set; }
         public NotificationType Type { get; set; }

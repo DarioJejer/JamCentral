@@ -30,7 +30,7 @@
                 <% }%>
 
                 <% if(notification.type == 2) {%>
-                <span class="highlight"><%= notification.gig.artist.name%></span> has modified the gig from <%= notification.gigPreviousLocation%> the <%=moment(notification.gigPreviousDateTime).format("D MMM HH:mm")%> to <%= notification.gig.location%> the <%= moment(notification.gig.date).format("D MMM HH:mm")%>
+                <span class="highlight"><%= notification.gig.artist.name%></span> has modified the gig from <%= notification.gigPreviousLocation%> the <%=moment(notification.gigPreviousDateTime).format("D MMM HH:mm")%> to <%= notification.gigNewLocation%> the <%= moment(notification.gigNewDateTime).format("D MMM HH:mm")%>
                 <% }%>
 
                 <% if(notification.type == 3) {%>

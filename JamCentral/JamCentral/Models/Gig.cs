@@ -75,7 +75,7 @@ namespace JamCentral.Models
 
         public void Modify(DateTime dateTime, string location, byte genreId)
         {
-            var notification = Notification.GigModified(this);
+            var notification = Notification.GigModified(this, location, dateTime);
 
             Location = location;
             Date = dateTime;

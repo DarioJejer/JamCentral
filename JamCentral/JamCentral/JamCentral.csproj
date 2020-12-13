@@ -249,6 +249,10 @@
     <Compile Include="Migrations\202012021246553_AddNavigationPropertyOnUserModel.Designer.cs">
       <DependentUpon>202012021246553_AddNavigationPropertyOnUserModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012132003514_AddAtributesToNotificationsTable.cs" />
+    <Compile Include="Migrations\202012132003514_AddAtributesToNotificationsTable.Designer.cs">
+      <DependentUpon>202012132003514_AddAtributesToNotificationsTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
@@ -484,6 +488,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012021246553_AddNavigationPropertyOnUserModel.resx">
       <DependentUpon>202012021246553_AddNavigationPropertyOnUserModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012132003514_AddAtributesToNotificationsTable.resx">
+      <DependentUpon>202012132003514_AddAtributesToNotificationsTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

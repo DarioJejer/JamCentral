@@ -45,13 +45,7 @@ namespace JamCentral.Controllers
 
             var artistId = User.Identity.GetUserId();
 
-            var gig = new Gig
-            {
-                Location = viewModel.Location,
-                Date = viewModel.GetDateTime(),
-                GenreId = viewModel.GenreId,
-                ArtistId = artistId
-            };
+            var gig = new Gig(artistId, viewModel.Location, viewModel.GetDateTime(), viewModel.GenreId);
 
             _context.Gigs.Add(gig);
 

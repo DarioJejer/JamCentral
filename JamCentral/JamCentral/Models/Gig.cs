@@ -27,6 +27,17 @@ namespace JamCentral.Models
 
         public ICollection<Attendence> Attendences { get; set; }
 
+        private Gig()
+        {
+        }
+        public Gig(string artistId, string location, DateTime date, byte genreId) : this()
+        {            
+            Date = date;
+            ArtistId = artistId;
+            GenreId = genreId;
+            Location = location;
+        }
+
         public void Cancel()
         {
             IsCanceled = true;

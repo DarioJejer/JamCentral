@@ -1,6 +1,7 @@
 ﻿using JamCentral.Dtos;
 using JamCentral.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace JamCentral.ViewModels
 {
@@ -12,5 +13,6 @@ namespace JamCentral.ViewModels
         public IEnumerable<Gig> upcomingGigs { get; set; }
         public bool showActions { get; set; }
         public string Search { get; set; }
+        public ILookup<int, Attendence> Attendences { get; internal set; }
     }
 }

@@ -51,7 +51,7 @@
                 }
                 @if (Model.showActions)
                 {
-                    if (Model.User.Attendences.Any(a => a.GigId == gig.Id))
+                    if (Model.Attendences.Contains(gig.Id))
                     {
                         <button class="btn btn-light btn-sm float-right disabled">Booked</button>
                     }

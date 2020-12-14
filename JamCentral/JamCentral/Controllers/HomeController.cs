@@ -40,14 +40,19 @@ namespace JamCentral.Controllers
                     .Single(u => u.Id == userId);
             }
 
+            var attendences = _context.Attendences
+                .Where(a => a.AttendeeId == userId && a.Gig.Date > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.GigId);
+
             var viewModel = new GigsViewModel
             {
                 upcomingGigs = gigs,
                 showActions = User.Identity.IsAuthenticated,
                 User = Mapper.Map<ApplicationUserDto>(user),
                 Title = "Upcoming Gigs for this season",
-                Header = "Home Page"
-
+                Header = "Home Page",
+                Attendences = attendences
             };
 
             return View("../Gigs/GigsList", viewModel);

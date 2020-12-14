@@ -66,7 +66,7 @@ namespace JamCentral.Controllers
         {
             var userId = User.Identity.GetUserId();
             var gigs = _context.Attendences
-                .Where(a => a.AttendeeId == userId)
+                .Where(a => a.AttendeeId == userId && a.Gig.Date > DateTime.Now)
                 .Select(a => a.Gig)
                 .Include(g => g.Artist)
                 .Include(g => g.Genre)
@@ -139,7 +139,7 @@ namespace JamCentral.Controllers
         {
             var userId = User.Identity.GetUserId();
             var gigs = _context.Gigs
-                .Where(g => g.ArtistId == userId)
+                .Where(g => g.ArtistId == userId && g.Date > DateTime.Now)
                 .Include(g => g.Genre)
                 .OrderBy(g => g.Date)
                 .ToList();

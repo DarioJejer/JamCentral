@@ -88,15 +88,15 @@ namespace JamCentral.Controllers
         public ActionResult Edit(int gigId)
         {
             var userId = User.Identity.GetUserId();
-            var gigInDb = _context.Gigs.SingleOrDefault(g => g.Id == gigId && g.ArtistId == userId);
+            var gig = _context.Gigs.SingleOrDefault(g => g.Id == gigId && g.ArtistId == userId);
             var viewModel = new GigFormViewModel
             {
-                Id = gigInDb.Id,
+                Id = gig.Id,
                 Heading = "Edit a Gig",
-                Location = gigInDb.Location,
-                Date = gigInDb.Date.ToString("d MMM yyyy"),
-                Time = gigInDb.Date.ToString("HH:mm"),
-                GenreId = gigInDb.GenreId,
+                Location = gig.Location,
+                Date = gig.Date.ToString("d MMM yyyy"),
+                Time = gig.Date.ToString("HH:mm"),
+                GenreId = gig.GenreId,
                 Genres = _context.Genres.ToList()
             };
 
@@ -115,11 +115,13 @@ namespace JamCentral.Controllers
                 return View("GigForm", viewModel);
             }
 
-            var userId = User.Identity.GetUserId();
-            var gig = _context.Gigs
-                .Include(g => g.Artist.Followers.Select(f => f.User))
-                .Include(g => g.Attendences.Select(a => a.Attendee))
-                .Single(g => g.Id == viewModel.Id && g.ArtistId == userId);
+            var gig = _gigsRepository.GetGigWithAttendanceAndFolllowers(viewModel.Id);
+
+            if (gig == null)
+                return HttpNotFound();
+
+            if (gig.ArtistId != User.Identity.GetUserId())
+                return new HttpUnauthorizedResult();
 
             gig.Modify(viewModel.GetDateTime(), viewModel.Location, viewModel.GenreId);            
 

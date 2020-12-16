@@ -25,5 +25,13 @@ namespace JamCentral.Repositories
                 .OrderBy(g => g.Date)
                 .ToList();
         }
+
+        public Gig GetGigWithAttendanceAndFolllowers(int gigId)
+        {
+            return _context.Gigs
+                .Include(g => g.Artist.Followers.Select(f => f.User))
+                .Include(g => g.Attendences.Select(a => a.Attendee))
+                .SingleOrDefault(g => g.Id == gigId);
+        }
     }
 }

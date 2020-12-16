@@ -17,12 +17,14 @@ namespace JamCentral.Controllers
         private ApplicationDbContext _context;
         private GigsRepository _gigsRepository;
         private UserRepository _userRepository;
+        private FollowingsRepository _followingsRepository;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
             _gigsRepository = new GigsRepository(_context);
             _userRepository = new UserRepository(_context);
+            _followingsRepository = new FollowingsRepository(_context);
         }
 
         [Authorize]
@@ -55,11 +57,7 @@ namespace JamCentral.Controllers
 
             _context.Gigs.Add(gig);
 
-            var followers = _context.Users
-                .Include(u => u.Followers.Select(f => f.User))
-                .Single(u => u.Id == artistId)
-                .Followers.Select(f => f.User)
-                .ToList();
+            var followers = _followingsRepository.GetFollowersByArtist(artistId);
 
             gig.NotifyGigCreation(followers);
 
@@ -87,11 +85,12 @@ namespace JamCentral.Controllers
         [Authorize]
         public ActionResult Edit(int gigId)
         {
-            var userId = User.Identity.GetUserId();
             var gig = _gigsRepository.GetGig(gigId);
+
             if (gig == null)
                 return HttpNotFound();
-            if (gig.ArtistId != userId)
+
+            if (gig.ArtistId != User.Identity.GetUserId())
                 return new HttpUnauthorizedResult();
             
             var viewModel = new GigFormViewModel

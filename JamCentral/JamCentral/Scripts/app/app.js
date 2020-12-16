@@ -1,4 +1,17 @@
-﻿var GigsController = function () {
+﻿var AttendanceService = function () {
+
+    var createAttendance = function (gigId, done, fail) {
+        $.post("/api/attendences", { GigId: gigId })
+            .done(done)
+            .fail(fail);
+    };
+
+    return {
+        createAttendance: createAttendance
+    }
+}();
+
+var GigsController = function (attendanceService) {
 
     var button;
 
@@ -8,13 +21,8 @@
 
     var toggleAttendance = function (e) {
         button = $(e.target);
-        createAttendence();
-    };
-
-    var createAttendence = function () {
-        $.post("/api/attendences", { GigId: button.attr("data-gig-id") })
-            .done(done)
-            .fail(fail);
+        gigId = button.attr("data-gig-id")
+        attendanceService.createAttendance(gigId, done, fail);
     };
 
     var done = function () {
@@ -31,4 +39,4 @@
     return {
         init: init
     }
-}();
+}(AttendanceService);

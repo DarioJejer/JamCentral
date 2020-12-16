@@ -8,6 +8,8 @@ namespace JamCentral
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                        "~/scripts/app/services/attendanceService.js",
+                        "~/scripts/app/controllers/gigsController.js",
                         "~/scripts/app/app.js"
                 ));
 

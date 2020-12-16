@@ -93,9 +93,7 @@ namespace JamCentral.Controllers
                 return HttpNotFound();
             if (gig.ArtistId != userId)
                 return new HttpUnauthorizedResult();
-
-            //var gig = _context.Gigs.SingleOrDefault(g => g.Id == gigId && g.ArtistId == userId);
-
+            
             var viewModel = new GigFormViewModel
             {
                 Id = gig.Id,
@@ -141,11 +139,8 @@ namespace JamCentral.Controllers
         public ActionResult Mine()
         {
             var userId = User.Identity.GetUserId();
-            var gigs = _context.Gigs
-                .Where(g => g.ArtistId == userId && g.Date > DateTime.Now)
-                .Include(g => g.Genre)
-                .OrderBy(g => g.Date)
-                .ToList();
+
+            var gigs = _gigsRepository.GetGigsOfUser(userId);
 
             return View(gigs);
         }       

@@ -15,6 +15,15 @@ namespace JamCentral.Repositories
         {
             _context = context;
         }
+
+        public  IEnumerable<Gig> GetGigsOfUser(string userId)
+        {
+            return _context.Gigs
+                .Where(g => g.ArtistId == userId && g.Date > DateTime.Now)
+                .Include(g => g.Genre)
+                .OrderBy(g => g.Date)
+                .ToList();
+        }
         public IEnumerable<Gig> GetGigsUserIsAttending(string userId)
         {
             return _context.Attendences

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JamCentral.Dtos;
 using JamCentral.Models;
+using JamCentral.Repositories;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
@@ -13,10 +14,12 @@ namespace JamCentral.Controllers
     public class HomeController : Controller
     {
         private ApplicationDbContext _context;
+        private UserRepository _userRepository;
 
         public HomeController()
         {
             _context = new ApplicationDbContext();
+            _userRepository = new UserRepository(_context);
         }
         public ActionResult Index()
         {
@@ -32,14 +35,9 @@ namespace JamCentral.Controllers
 
             var user = new ApplicationUser();
 
-            if (userId != null)
-            {
-                user = _context.Users
-                    .Include(u => u.Followees)
-                    .Include(u => u.Attendences)
-                    .Single(u => u.Id == userId);
-            }
-
+            if (userId != null)            
+                user = _userRepository.GetUser(userId);
+            
             var attendences = _context.Attendences
                 .Where(a => a.AttendeeId == userId && a.Gig.Date > DateTime.Now)
                 .ToList()

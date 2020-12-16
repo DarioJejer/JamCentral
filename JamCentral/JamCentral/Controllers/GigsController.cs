@@ -15,14 +15,14 @@ namespace JamCentral.Controllers
     public class GigsController : Controller
     {
         private ApplicationDbContext _context;
-        private GigsRepository gigsRepository;
-        private UserRepository userRepository;
+        private GigsRepository _gigsRepository;
+        private UserRepository _userRepository;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
-            gigsRepository = new GigsRepository(_context);
-            userRepository = new UserRepository(_context);
+            _gigsRepository = new GigsRepository(_context);
+            _userRepository = new UserRepository(_context);
         }
 
         [Authorize]
@@ -74,9 +74,9 @@ namespace JamCentral.Controllers
 
             var viewModel = new GigsViewModel
             {
-                upcomingGigs = gigsRepository.GetGigsUserIsAttending(userId),
+                upcomingGigs = _gigsRepository.GetGigsUserIsAttending(userId),
                 showActions = true,
-                User = Mapper.Map<ApplicationUserDto>(userRepository.GetUser(userId)),
+                User = Mapper.Map<ApplicationUserDto>(_userRepository.GetUser(userId)),
                 Title = "Gigs that you are attending",
                 Header = "My calendar"
             };

@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using JamCentral.Dtos;
 using JamCentral.Models;
+using JamCentral.Repositories;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -13,10 +15,14 @@ namespace JamCentral.Controllers
     public class GigsController : Controller
     {
         private ApplicationDbContext _context;
+        private GigsRepository gigsRepository;
+        private UserRepository userRepository;
 
         public GigsController()
         {
             _context = new ApplicationDbContext();
+            gigsRepository = new GigsRepository(_context);
+            userRepository = new UserRepository(_context);
         }
 
         [Authorize]
@@ -65,30 +71,18 @@ namespace JamCentral.Controllers
         public ActionResult MyCalendar()
         {
             var userId = User.Identity.GetUserId();
-            var gigs = _context.Attendences
-                .Where(a => a.AttendeeId == userId && a.Gig.Date > DateTime.Now)
-                .Select(a => a.Gig)
-                .Include(g => g.Artist)
-                .Include(g => g.Genre)
-                .OrderBy(g => g.Date)
-                .ToList();
-
-            var user = _context.Users
-                    .Include(u => u.Followees)
-                    .Include(u => u.Attendences)
-                    .Single(u => u.Id == userId);
 
             var viewModel = new GigsViewModel
             {
-                upcomingGigs = gigs,
+                upcomingGigs = gigsRepository.GetGigsUserIsAttending(userId),
                 showActions = true,
-                User = Mapper.Map<ApplicationUserDto>(user),
+                User = Mapper.Map<ApplicationUserDto>(userRepository.GetUser(userId)),
                 Title = "Gigs that you are attending",
-                Header= "My calendar"
+                Header = "My calendar"
             };
 
             return View(viewModel);
-        }
+        }           
 
         [Authorize]
         public ActionResult Edit(int gigId)

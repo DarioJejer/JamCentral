@@ -88,7 +88,14 @@ namespace JamCentral.Controllers
         public ActionResult Edit(int gigId)
         {
             var userId = User.Identity.GetUserId();
-            var gig = _context.Gigs.SingleOrDefault(g => g.Id == gigId && g.ArtistId == userId);
+            var gig = _gigsRepository.GetGig(gigId);
+            if (gig == null)
+                return HttpNotFound();
+            if (gig.ArtistId != userId)
+                return new HttpUnauthorizedResult();
+
+            //var gig = _context.Gigs.SingleOrDefault(g => g.Id == gigId && g.ArtistId == userId);
+
             var viewModel = new GigFormViewModel
             {
                 Id = gig.Id,

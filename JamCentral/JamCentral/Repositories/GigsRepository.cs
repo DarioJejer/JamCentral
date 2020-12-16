@@ -26,6 +26,11 @@ namespace JamCentral.Repositories
                 .ToList();
         }
 
+        public Gig GetGig(int gigId)
+        {
+            return _context.Gigs.SingleOrDefault(g => g.Id == gigId);
+        }
+
         public Gig GetGigWithAttendanceAndFolllowers(int gigId)
         {
             return _context.Gigs

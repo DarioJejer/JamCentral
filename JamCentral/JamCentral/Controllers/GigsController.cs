@@ -18,6 +18,7 @@ namespace JamCentral.Controllers
         private GigsRepository _gigsRepository;
         private UserRepository _userRepository;
         private FollowingsRepository _followingsRepository;
+        private GenresRepository _genresRepository;
 
         public GigsController()
         {
@@ -25,6 +26,7 @@ namespace JamCentral.Controllers
             _gigsRepository = new GigsRepository(_context);
             _userRepository = new UserRepository(_context);
             _followingsRepository = new FollowingsRepository(_context);
+            _genresRepository = new GenresRepository(_context);
         }
 
         [Authorize]
@@ -33,7 +35,7 @@ namespace JamCentral.Controllers
             var viewModel = new GigFormViewModel
             {
                 Heading = "Add a Gig",
-                Genres = _context.Genres.ToList()
+                Genres = _genresRepository.GetGenres()
             };
 
             return View("GigForm",viewModel);
@@ -47,7 +49,7 @@ namespace JamCentral.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Heading = "Add a Gig";
-                viewModel.Genres = _context.Genres.ToList();
+                viewModel.Genres = _genresRepository.GetGenres();
                 return View("GigForm", viewModel);
             }
 
@@ -101,7 +103,7 @@ namespace JamCentral.Controllers
                 Date = gig.Date.ToString("d MMM yyyy"),
                 Time = gig.Date.ToString("HH:mm"),
                 GenreId = gig.GenreId,
-                Genres = _context.Genres.ToList()
+                Genres = _genresRepository.GetGenres()
             };
 
             return View("GigForm", viewModel);
@@ -115,7 +117,7 @@ namespace JamCentral.Controllers
             if (!ModelState.IsValid)
             {
                 viewModel.Heading = "Edit a Gig";
-                viewModel.Genres = _context.Genres.ToList();
+                viewModel.Genres = _genresRepository.GetGenres();
                 return View("GigForm", viewModel);
             }
 

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using JamCentral.Dtos;
 using JamCentral.Models;
+using JamCentral.Persistence;
 using JamCentral.Repositories;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
@@ -19,6 +20,7 @@ namespace JamCentral.Controllers
         private UserRepository _userRepository;
         private FollowingsRepository _followingsRepository;
         private GenresRepository _genresRepository;
+        private UnitOfWork _unitOfWork;
 
         public GigsController()
         {
@@ -27,6 +29,7 @@ namespace JamCentral.Controllers
             _userRepository = new UserRepository(_context);
             _followingsRepository = new FollowingsRepository(_context);
             _genresRepository = new GenresRepository(_context);
+            _unitOfWork = new UnitOfWork(_context);
         }
 
         [Authorize]
@@ -57,13 +60,13 @@ namespace JamCentral.Controllers
 
             var gig = new Gig(artistId, viewModel.Location, viewModel.GetDateTime(), viewModel.GenreId);
 
-            _context.Gigs.Add(gig);
+            _gigsRepository.Add(gig);
 
             var followers = _followingsRepository.GetFollowersByArtist(artistId);
 
             gig.NotifyGigCreation(followers);
 
-            _context.SaveChanges();            
+            _unitOfWork.Complete();
 
             return RedirectToAction("Mine", "Gigs");
         }

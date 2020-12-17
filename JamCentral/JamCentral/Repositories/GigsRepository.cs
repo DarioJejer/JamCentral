@@ -47,5 +47,10 @@ namespace JamCentral.Repositories
                 .Include(g => g.Attendences.Select(a => a.Attendee))
                 .SingleOrDefault(g => g.Id == gigId);
         }
+
+        internal void Add(Gig gig)
+        {
+            _context.Gigs.Add(gig);
+        }
     }
 }

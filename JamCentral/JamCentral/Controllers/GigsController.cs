@@ -15,13 +15,11 @@ namespace JamCentral.Controllers
 {
     public class GigsController : Controller
     {
-        private ApplicationDbContext _context;
-        private UnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         public GigsController()
         {
-            _context = new ApplicationDbContext();
-            _unitOfWork = new UnitOfWork(_context);
+            _unitOfWork = new UnitOfWork(new ApplicationDbContext());
         }
 
         [Authorize]

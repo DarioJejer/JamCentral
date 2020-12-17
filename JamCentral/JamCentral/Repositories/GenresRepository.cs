@@ -6,7 +6,7 @@ using System.Web;
 
 namespace JamCentral.Repositories
 {
-    public class GenresRepository
+    public class GenresRepository : IGenresRepository
     {
         private ApplicationDbContext _context;
 

@@ -7,13 +7,13 @@ using System.Web;
 
 namespace JamCentral.Persistence
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        public GigsRepository Gigs {get; private set;}
-        public UserRepository Users { get; private set; }
-        public FollowingsRepository Followings { get; private set; }
-        public GenresRepository Genres { get; private set; }
+        public IGigsRepository Gigs { get; private set; }
+        public IUserRepository Users { get; private set; }
+        public IFollowingsRepository Followings { get; private set; }
+        public IGenresRepository Genres { get; private set; }
 
 
 

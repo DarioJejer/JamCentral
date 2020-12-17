@@ -7,7 +7,7 @@ using System.Web;
 
 namespace JamCentral.Repositories
 {
-    public class GigsRepository
+    public class GigsRepository : IGigsRepository
     {
         private ApplicationDbContext _context;
 
@@ -16,7 +16,7 @@ namespace JamCentral.Repositories
             _context = context;
         }
 
-        public  IEnumerable<Gig> GetGigsOfUser(string userId)
+        public IEnumerable<Gig> GetGigsOfUser(string userId)
         {
             return _context.Gigs
                 .Where(g => g.ArtistId == userId && g.Date > DateTime.Now)
@@ -48,7 +48,7 @@ namespace JamCentral.Repositories
                 .SingleOrDefault(g => g.Id == gigId);
         }
 
-        internal void Add(Gig gig)
+        public void Add(Gig gig)
         {
             _context.Gigs.Add(gig);
         }

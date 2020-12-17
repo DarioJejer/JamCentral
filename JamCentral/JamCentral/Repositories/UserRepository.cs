@@ -7,7 +7,7 @@ using System.Web;
 
 namespace JamCentral.Repositories
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private ApplicationDbContext _context;
         public UserRepository(ApplicationDbContext context)

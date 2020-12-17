@@ -6,7 +6,7 @@ using System.Web;
 
 namespace JamCentral.Repositories
 {
-    public class FollowingsRepository
+    public class FollowingsRepository : IFollowingsRepository
     {
         private ApplicationDbContext _context;
 

@@ -10,12 +10,10 @@ namespace JamCentral.Controllers.API
     [Authorize]
     public class GigsController : ApiController
     {
-        private ApplicationDbContext _context;
-        private readonly IUnitOfWork _unitOfWork;
+        private IUnitOfWork _unitOfWork;
 
         public GigsController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
             _unitOfWork = unitOfWork;
         }
 

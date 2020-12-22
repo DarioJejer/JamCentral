@@ -284,6 +284,7 @@
     <Compile Include="Models\NotificationFeed\Notification.cs" />
     <Compile Include="Models\NotificationFeed\NotificationType.cs" />
     <Compile Include="Models\NotificationFeed\UserNotification.cs" />
+    <Compile Include="Persistence\EntityConfigurations\GigConfiguration.cs" />
     <Compile Include="Persistence\IUnitOfWork.cs" />
     <Compile Include="Persistence\UnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

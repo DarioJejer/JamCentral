@@ -10,21 +10,12 @@ namespace JamCentral.Models
     {
         public int Id { get; set; }
         public ApplicationUser Artist { get; set; }
-
-        [Required]
         public string ArtistId { get; set; }
         public DateTime Date { get; set; }
         public Genre Genre { get; set; }
-
-        [Required]
         public byte GenreId { get; set; }
-
-        [Required]
-        [StringLength(255)]
         public string Location { get; set; }
-
         public bool IsCanceled { get; private set; }
-
         public ICollection<Attendence> Attendences { get; set; }
 
         private Gig()

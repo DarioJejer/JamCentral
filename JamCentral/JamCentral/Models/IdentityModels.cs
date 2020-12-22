@@ -1,4 +1,5 @@
 ﻿using JamCentral.Models.NotificationFeed;
+using JamCentral.Persistence.EntityConfigurations;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
@@ -25,6 +26,8 @@ namespace JamCentral.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new GigConfiguration());
+
             modelBuilder.Entity<Attendence>()
                 .HasRequired(a => a.Gig)
                 .WithMany(g => g.Attendences)

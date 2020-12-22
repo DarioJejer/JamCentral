@@ -23,8 +23,6 @@ namespace JamCentral.Controllers.API
         [HttpPut]
         public IHttpActionResult Uncancel(int id)
         {
-            //var userId = User.Identity.GetUserId();
-
             var gig = _unitOfWork.Gigs.GetGigWithAttendanceAndFolllowers(id);
 
             if (gig == null)
@@ -35,11 +33,6 @@ namespace JamCentral.Controllers.API
 
             if (gig.ArtistId != User.Identity.GetUserId())
                 return Unauthorized();
-
-            //var gig = _context.Gigs
-            //    .Include(g => g.Artist.Followers.Select(f => f.User))
-            //    .Include(g => g.Attendences.Select(a => a.Attendee))
-            //    .SingleOrDefault(g => g.Id == id && g.ArtistId == userId && g.IsCanceled);
 
             gig.Uncancel();
 
@@ -52,18 +45,20 @@ namespace JamCentral.Controllers.API
         [HttpDelete]
         public IHttpActionResult Cancel(int id)
         {
-            var userId = User.Identity.GetUserId();
-            var gig = _context.Gigs
-                .Include(g => g.Attendences.Select(a => a.Attendee))
-                .Include(g => g.Artist.Followers.Select(f => f.User))
-                .SingleOrDefault(g => g.Id == id && g.ArtistId == userId && !g.IsCanceled);
+            var gig = _unitOfWork.Gigs.GetGigWithAttendanceAndFolllowers(id);
 
-            if (gig == null)          
+            if (gig == null)
                 return NotFound();
+
+            if (gig.IsCanceled)
+                return BadRequest();
+
+            if (gig.ArtistId != User.Identity.GetUserId())
+                return Unauthorized();
 
             gig.Cancel();
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return Ok();
         }

@@ -22,6 +22,9 @@ namespace JamCentral.Models
         public ApplicationUser()
         {
             UserNotifications = new Collection<UserNotification>();
+            Followees = new Collection<Following>();
+            Followers = new Collection<Following>();
+            Attendences = new Collection<Attendence>();
         }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

@@ -1,6 +1,7 @@
 ﻿using JamCentral.Models.NotificationFeed;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
@@ -20,6 +21,8 @@ namespace JamCentral.Models
 
         private Gig()
         {
+            Attendences = new Collection<Attendence>();
+            Artist = new ApplicationUser();
         }
         public Gig(string artistId, string location, DateTime date, byte genreId) : this()
         {            

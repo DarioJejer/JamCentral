@@ -20,8 +20,10 @@ namespace JamCentral.Tests.Controllers.API
     {
         private GigsController _controller;
         private Mock<IGigsRepository> _mockRepository;
+        private string _userId = "1";
 
-        public GigsControllerTests()
+        [TestInitialize]
+        public void TestInitialize()
         {
             _mockRepository = new Mock<IGigsRepository>();
 
@@ -29,7 +31,7 @@ namespace JamCentral.Tests.Controllers.API
             mockUoW.SetupGet(u => u.Gigs).Returns(_mockRepository.Object);
 
             _controller = new GigsController(mockUoW.Object);
-            _controller.MockCurrentUser("1", "pepito@midominio.com");
+            _controller.MockCurrentUser(_userId, "pepito@midominio.com");
         }
 
         [TestMethod]
@@ -43,7 +45,9 @@ namespace JamCentral.Tests.Controllers.API
         [TestMethod]
         public void Cancel_GigAlreadyCanceled_ReturnBadRequest()
         {
-            var gig = new Gig("1","location", DateTime.Now.AddDays(1),2);
+            var gig = new Gig(_userId,"location", DateTime.Now.AddDays(1),2);
+
+            gig.Artist = new ApplicationUser();
 
             gig.Cancel();
 
@@ -57,7 +61,7 @@ namespace JamCentral.Tests.Controllers.API
         [TestMethod]
         public void Cancel_UserUnAuthorized_ReturnUnauthorized()
         {
-            var gig = new Gig("2","location", DateTime.Now.AddDays(1),2);
+            var gig = new Gig(_userId + "-","location", DateTime.Now.AddDays(1),2);
 
             _mockRepository.Setup(r => r.GetGigWithAttendanceAndFolllowers(1)).Returns(gig);
 
@@ -69,7 +73,9 @@ namespace JamCentral.Tests.Controllers.API
         [TestMethod]
         public void Cancel_ValidCancel_ReturnOk()
         {
-            var gig = new Gig("1","location", DateTime.Now.AddDays(1),2);
+            var gig = new Gig(_userId,"location", DateTime.Now.AddDays(1),2);
+
+            gig.Artist = new ApplicationUser(); 
 
             _mockRepository.Setup(r => r.GetGigWithAttendanceAndFolllowers(1)).Returns(gig);
 

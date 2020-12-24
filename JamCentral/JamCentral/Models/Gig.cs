@@ -9,20 +9,19 @@ namespace JamCentral.Models
 {
     public class Gig
     {
-        public int Id { get; set; }
+        public int Id { get; private set; }
         public ApplicationUser Artist { get; set; }
-        public string ArtistId { get; set; }
-        public DateTime Date { get; set; }
-        public Genre Genre { get; set; }
-        public byte GenreId { get; set; }
-        public string Location { get; set; }
+        public string ArtistId { get; private set; }
+        public DateTime Date { get; private set; }
+        public Genre Genre { get; private set; }
+        public byte GenreId { get; private set; }
+        public string Location { get; private set; }
         public bool IsCanceled { get; private set; }
-        public ICollection<Attendence> Attendences { get; set; }
+        public ICollection<Attendence> Attendences { get; private set; }
 
         private Gig()
         {
             Attendences = new Collection<Attendence>();
-            Artist = new ApplicationUser();
         }
         public Gig(string artistId, string location, DateTime date, byte genreId) : this()
         {            

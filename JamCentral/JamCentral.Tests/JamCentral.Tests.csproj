@@ -120,7 +120,6 @@
   <ItemGroup>
     <Compile Include="Controllers\API\GigsControllerTests.cs" />
     <Compile Include="Extensions\ApiControllerExtensions.cs" />
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

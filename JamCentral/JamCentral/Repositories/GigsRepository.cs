@@ -9,14 +9,14 @@ namespace JamCentral.Repositories
 {
     public class GigsRepository : IGigsRepository
     {
-        private ApplicationDbContext _context;
+        private IApplicationDbContext _context;
 
-        public GigsRepository(ApplicationDbContext context)
+        public GigsRepository(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public IEnumerable<Gig> GetGigsOfUser(string userId)
+        public IEnumerable<Gig> GetGigsOfArtist(string userId)
         {
             return _context.Gigs
                 .Where(g => g.ArtistId == userId && g.Date > DateTime.Now)

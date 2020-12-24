@@ -134,7 +134,7 @@ namespace JamCentral.Controllers
         {
             var userId = User.Identity.GetUserId();
 
-            var gigs = _unitOfWork.Gigs.GetGigsOfUser(userId);
+            var gigs = _unitOfWork.Gigs.GetGigsOfArtist(userId);
 
             return View(gigs);
         }       

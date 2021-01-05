@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JamCentral", "JamCentral\Ja
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JamCentral.Tests", "JamCentral.Tests\JamCentral.Tests.csproj", "{C423578A-EAE5-4167-835B-6F9473F8A624}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JamCentral.IntegrationTests", "JamCentral.IntegrationTests\JamCentral.IntegrationTests.csproj", "{1393B8E9-369F-444F-8EC0-01F22AEC8D4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C423578A-EAE5-4167-835B-6F9473F8A624}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C423578A-EAE5-4167-835B-6F9473F8A624}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C423578A-EAE5-4167-835B-6F9473F8A624}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1393B8E9-369F-444F-8EC0-01F22AEC8D4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1393B8E9-369F-444F-8EC0-01F22AEC8D4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1393B8E9-369F-444F-8EC0-01F22AEC8D4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1393B8E9-369F-444F-8EC0-01F22AEC8D4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

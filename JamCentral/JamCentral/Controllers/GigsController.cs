@@ -2,13 +2,8 @@
 using JamCentral.Dtos;
 using JamCentral.Models;
 using JamCentral.Persistence;
-using JamCentral.Repositories;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace JamCentral.Controllers
@@ -130,7 +125,7 @@ namespace JamCentral.Controllers
         }
 
         [Authorize]
-        public ActionResult Mine()
+        public ViewResult Mine()
         {
             var userId = User.Identity.GetUserId();
 

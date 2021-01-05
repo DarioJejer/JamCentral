@@ -1,17 +1,13 @@
-﻿using JamCentral.Controllers.API;
+﻿using FluentAssertions;
+using JamCentral.Controllers.API;
+using JamCentral.Models;
 using JamCentral.Persistence;
-using System.Web.Http;
+using JamCentral.Repositories;
+using JamCentral.Tests.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Web.Mvc;
-using JamCentral.Tests.Extensions;
-using FluentAssertions;
-using JamCentral.Repositories;
 using System.Web.Http.Results;
-using JamCentral.Models;
 
 namespace JamCentral.Tests.Controllers.API
 {

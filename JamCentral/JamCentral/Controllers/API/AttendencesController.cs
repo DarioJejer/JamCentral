@@ -2,7 +2,6 @@
 using JamCentral.Models;
 using JamCentral.Persistence;
 using Microsoft.AspNet.Identity;
-using System.Linq;
 using System.Web.Http;
 
 namespace JamCentral.Controllers.API
@@ -10,12 +9,10 @@ namespace JamCentral.Controllers.API
     [Authorize]
     public class AttendencesController : ApiController
     {
-        private ApplicationDbContext _context;
         private IUnitOfWork _unitOfWork;
 
         public AttendencesController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
             _unitOfWork = unitOfWork;
         }
 

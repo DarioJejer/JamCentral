@@ -293,6 +293,7 @@
     <Compile Include="Repositories\FollowingsRepository.cs" />
     <Compile Include="Repositories\GenresRepository.cs" />
     <Compile Include="Repositories\GigsRepository.cs" />
+    <Compile Include="Repositories\IAttendencesRepository.cs" />
     <Compile Include="Repositories\IFollowingsRepository.cs" />
     <Compile Include="Repositories\IGenresRepository.cs" />
     <Compile Include="Repositories\IGigsRepository.cs" />

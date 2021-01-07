@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace JamCentral.Repositories
 {
-    public class AttendencesRepository
+    public class AttendencesRepository : IAttendencesRepository
     {
         private ApplicationDbContext _context;
 

@@ -10,7 +10,7 @@ namespace JamCentral.Persistence
         public IUserRepository Users { get; private set; }
         public IFollowingsRepository Followings { get; private set; }
         public IGenresRepository Genres { get; private set; }
-        public AttendencesRepository Attendences { get; private set; }
+        public IAttendencesRepository Attendences { get; private set; }
 
 
 

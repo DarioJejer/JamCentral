@@ -151,5 +151,36 @@ namespace JamCentral.IntegrationTests.Controllers
             gig.Date.Should().Be(DateTime.Today.AddDays(1).AddHours(18));
             gig.GenreId.Should().Be(genre.Id);
         }
+
+        [Test, Isolated]
+        public void Create_ColledWithFollowers_NotifyFollowers()
+        {
+            var user = _context.Users.First();
+            _controller.MockCurrentUser(user.Id, user.UserName);
+            var genre = _context.Genres.First();
+            var viewModel = new GigFormViewModel
+            {
+                Location = "-",
+                Date = DateTime.Today.AddDays(1).ToString("d MMM yyyy"),
+                Time = DateTime.Today.AddHours(18).ToString("HH:mm"),
+                GenreId = genre.Id
+            };
+            var following = new Following { ArtistId = user.Id, UserId = user.Id };
+            _context.Followings.Add(following);
+            _context.SaveChanges();
+
+            _controller.Create(viewModel);
+
+            var gig = _context.Gigs.First();
+            gig.Location.Should().Be("-");
+            gig.Date.Should().Be(DateTime.Today.AddDays(1).AddHours(18));
+            gig.GenreId.Should().Be(genre.Id);
+            var notfication = _context.Notifications.First();
+            notfication.GigId.Should().Be(gig.Id);
+            var userNotification = _context.UserNotifications.First();
+            userNotification.UserId.Should().Be(user.Id);
+            userNotification.NotificationId.Should().Be(notfication.Id);
+            userNotification.BeenRead.Should().Be(false);
+        }
     }
 }

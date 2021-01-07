@@ -46,14 +46,14 @@ namespace JamCentral.Controllers.API
         public IHttpActionResult Unbook(AttendenceDto dto)
         {
             var userId = User.Identity.GetUserId();
-            var recordInDb = _context.Attendences.SingleOrDefault(a => a.AttendeeId == userId && a.GigId == dto.GigId);
+            var recordInDb = _unitOfWork.Attendences.GetAttendenceByUserAndGig(userId, dto.GigId);
 
             if (recordInDb == null)
                 return BadRequest("The atendence doesn't exist");
 
-            _context.Attendences.Remove(recordInDb);
+            _unitOfWork.Attendences.Remove(recordInDb);
 
-            _context.SaveChanges();
+            _unitOfWork.Complete();
 
             return Ok();
         }

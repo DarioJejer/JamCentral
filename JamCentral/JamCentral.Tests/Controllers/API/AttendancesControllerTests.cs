@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using JamCentral.Controllers.API;
 using JamCentral.Dtos;
+using JamCentral.Models;
 using JamCentral.Persistence;
 using JamCentral.Repositories;
 using JamCentral.Tests.Extensions;
@@ -38,5 +39,40 @@ namespace JamCentral.Tests.Controllers.API
 
             result.Should().BeOfType<BadRequestErrorMessageResult>();
         }
+
+        [TestMethod]
+        public void Attend_ValidCall_ReturnOk()
+        {
+            _mockRepository.Setup(r => r.GetAttendenceExistInDb(userId, gigId)).Returns(false);
+            var dto = new AttendenceDto { GigId = gigId };
+
+            var result = _controller.Attend(dto);
+
+            result.Should().BeOfType<OkResult>();
+        }
+
+        [TestMethod]
+        public void Unbook_TheAttendanceAlreadyExist_ReturnBadRequest()
+        {
+            _mockRepository.Setup(r => r.GetAttendenceByUserAndGig(userId, gigId)).Returns(null as Attendence);
+            var dto = new AttendenceDto { GigId = gigId };
+
+            var result = _controller.Unbook(dto);
+
+            result.Should().BeOfType<BadRequestErrorMessageResult>();
+        }
+        
+        [TestMethod]
+        public void Unbook_ValidCall_ReturnOk()
+        {
+            _mockRepository.Setup(r => r.GetAttendenceByUserAndGig(userId, gigId)).Returns(new Attendence());
+            var dto = new AttendenceDto { GigId = gigId };
+
+            var result = _controller.Unbook(dto);
+
+            result.Should().BeOfType<OkResult>();
+        }
+
+
     }
 }

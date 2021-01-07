@@ -6,7 +6,6 @@ using JamCentral.IntegrationTests.Extensions;
 using JamCentral.Models;
 using JamCentral.Persistence;
 using JamCentral.ViewModels;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -20,12 +19,15 @@ namespace JamCentral.IntegrationTests.Controllers
     {
         private ApplicationDbContext _context;
         private GigsController _controller;
+        private ApplicationUser _user;
 
         [SetUp]
         public void SetUp()
         {
             _context = new ApplicationDbContext();
             _controller = new GigsController(new UnitOfWork(_context));
+            _user = _context.Users.First();
+            _controller.MockCurrentUser(_user.Id, _user.UserName);
             Mapper.Initialize(c => c.AddProfile<MappingProfile>());
         }
 
@@ -39,10 +41,8 @@ namespace JamCentral.IntegrationTests.Controllers
         [Test, Isolated]
         public void Mine_CalledCorrectly_ReturnGigs()
         {
-            var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
             var genre = _context.Genres.Single(g => g.Id == 1);
-            var gig = new Gig(user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
+            var gig = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
             _context.Gigs.Add(gig);
             _context.SaveChanges();
 
@@ -54,10 +54,8 @@ namespace JamCentral.IntegrationTests.Controllers
         [Test, Isolated]
         public void Update_CalledCorrectly_ModifyThegigOnDb()
         {
-            var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
             var genre = _context.Genres.Single(g => g.Id == 1);
-            var gig = new Gig(user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
+            var gig = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
             _context.Gigs.Add(gig);
             _context.SaveChanges();
             var viewModel = new GigFormViewModel
@@ -80,10 +78,8 @@ namespace JamCentral.IntegrationTests.Controllers
         [Test, Isolated]
         public void Edit_CalledCorrectly_ReadGig()
         {
-            var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
             var genre = _context.Genres.First();
-            var gig = new Gig(user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
+            var gig = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
             _context.Gigs.Add(gig);
             _context.SaveChanges();
 
@@ -100,24 +96,22 @@ namespace JamCentral.IntegrationTests.Controllers
         [Test, Isolated]
         public void MyCalendar_ColledCorrectly_ListOfGigs()
         {
-            var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
             var genre = _context.Genres.First();
-            var gig1 = new Gig(user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
+            var gig1 = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
             _context.Gigs.Add(gig1);
             var attendence1 = new Attendence
             {
                 GigId = gig1.Id,
-                AttendeeId = user.Id
+                AttendeeId = _user.Id
             };
             _context.Attendences.Add(attendence1);
             _context.SaveChanges();
-            var gig2 = new Gig(user.Id, "-", DateTime.Now.AddDays(2), genre.Id);
+            var gig2 = new Gig(_user.Id, "-", DateTime.Now.AddDays(2), genre.Id);
             _context.Gigs.Add(gig2);
             var attendence2 = new Attendence
             {
                 GigId = gig2.Id,
-                AttendeeId = user.Id
+                AttendeeId = _user.Id
             };
             _context.Attendences.Add(attendence2);
             _context.SaveChanges();
@@ -132,8 +126,6 @@ namespace JamCentral.IntegrationTests.Controllers
         [Test, Isolated]
         public void Create_ColledCorrectly_CreateAGig()
         {
-            var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
             var genre = _context.Genres.First();
             var viewModel = new GigFormViewModel
             {
@@ -155,8 +147,6 @@ namespace JamCentral.IntegrationTests.Controllers
         [Test, Isolated]
         public void Create_ColledWithFollowers_NotifyFollowers()
         {
-            var user = _context.Users.First();
-            _controller.MockCurrentUser(user.Id, user.UserName);
             var genre = _context.Genres.First();
             var viewModel = new GigFormViewModel
             {
@@ -165,7 +155,7 @@ namespace JamCentral.IntegrationTests.Controllers
                 Time = DateTime.Today.AddHours(18).ToString("HH:mm"),
                 GenreId = genre.Id
             };
-            var following = new Following { ArtistId = user.Id, UserId = user.Id };
+            var following = new Following { ArtistId = _user.Id, UserId = _user.Id };
             _context.Followings.Add(following);
             _context.SaveChanges();
 
@@ -178,7 +168,7 @@ namespace JamCentral.IntegrationTests.Controllers
             var notfication = _context.Notifications.First();
             notfication.GigId.Should().Be(gig.Id);
             var userNotification = _context.UserNotifications.First();
-            userNotification.UserId.Should().Be(user.Id);
+            userNotification.UserId.Should().Be(_user.Id);
             userNotification.NotificationId.Should().Be(notfication.Id);
             userNotification.BeenRead.Should().Be(false);
         }

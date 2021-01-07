@@ -24,7 +24,7 @@ namespace JamCentral.Controllers.API
             var recordExistInDb = _unitOfWork.Attendences.GetAttendenceExistInDb(userId, dto.GigId);
 
             if (recordExistInDb)
-                return BadRequest("The atendence already exist");
+                return BadRequest("The attendence already exist");
 
             var attendence = new Attendence
             {

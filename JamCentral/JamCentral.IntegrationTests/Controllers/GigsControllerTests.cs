@@ -52,7 +52,7 @@ namespace JamCentral.IntegrationTests.Controllers
         }
 
         [Test, Isolated]
-        public void Update_CalledCorrectly_ModifyThegigOnDb()
+        public void Update_CalledCorrectly_ModifyTheGigOnDb()
         {
             var genre = _context.Genres.Single(g => g.Id == 1);
             var gig = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
@@ -76,7 +76,7 @@ namespace JamCentral.IntegrationTests.Controllers
         }
 
         [Test, Isolated]
-        public void Edit_CalledCorrectly_ReadGig()
+        public void Edit_CalledCorrectly_ReturnGig()
         {
             var genre = _context.Genres.First();
             var gig = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
@@ -94,7 +94,7 @@ namespace JamCentral.IntegrationTests.Controllers
         }
 
         [Test, Isolated]
-        public void MyCalendar_ColledCorrectly_ListOfGigs()
+        public void MyCalendar_ColledCorrectly_ReturnListOfGigs()
         {
             var genre = _context.Genres.First();
             var gig1 = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);

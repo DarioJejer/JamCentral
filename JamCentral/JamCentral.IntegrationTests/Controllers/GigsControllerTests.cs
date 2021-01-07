@@ -128,5 +128,28 @@ namespace JamCentral.IntegrationTests.Controllers
             var list = viewModel.upcomingGigs;
             list.Should().HaveCount(2);
         }
+
+        [Test, Isolated]
+        public void Create_ColledCorrectly_CreateAGig()
+        {
+            var user = _context.Users.First();
+            _controller.MockCurrentUser(user.Id, user.UserName);
+            var genre = _context.Genres.First();
+            var viewModel = new GigFormViewModel
+            {
+                Id = 0, 
+                Location = "-",
+                Date = DateTime.Today.AddDays(1).ToString("d MMM yyyy"),
+                Time = DateTime.Today.AddHours(18).ToString("HH:mm"),
+                GenreId = genre.Id
+            };
+
+            _controller.Create(viewModel);
+
+            var gig = _context.Gigs.First();
+            gig.Location.Should().Be("-");
+            gig.Date.Should().Be(DateTime.Today.AddDays(1).AddHours(18));
+            gig.GenreId.Should().Be(genre.Id);
+        }
     }
 }

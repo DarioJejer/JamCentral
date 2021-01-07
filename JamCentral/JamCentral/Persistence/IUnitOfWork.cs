@@ -8,6 +8,7 @@ namespace JamCentral.Persistence
         IGenresRepository Genres { get; }
         IGigsRepository Gigs { get; }
         IUserRepository Users { get; }
+        AttendencesRepository Attendences { get; }
 
         void Complete();
     }

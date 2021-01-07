@@ -1,5 +1,6 @@
 ﻿using JamCentral.Dtos;
 using JamCentral.Models;
+using JamCentral.Persistence;
 using Microsoft.AspNet.Identity;
 using System.Linq;
 using System.Web.Http;
@@ -10,10 +11,12 @@ namespace JamCentral.Controllers.API
     public class AttendencesController : ApiController
     {
         private ApplicationDbContext _context;
+        private IUnitOfWork _unitOfWork;
 
-        public AttendencesController()
+        public AttendencesController(IUnitOfWork unitOfWork)
         {
             _context = new ApplicationDbContext();
+            _unitOfWork = unitOfWork;
         }
 
         [Authorize]
@@ -21,7 +24,7 @@ namespace JamCentral.Controllers.API
         public IHttpActionResult Attend(AttendenceDto dto)
         {
             var userId = User.Identity.GetUserId();
-            var recordExistInDb = _context.Attendences.Any(a => a.AttendeeId == userId && a.GigId == dto.GigId);
+            var recordExistInDb = _unitOfWork.Attendences.GetAttendenceExistInDb(userId, dto.GigId);
 
             if (recordExistInDb)
                 return BadRequest("The atendence already exist");
@@ -32,8 +35,8 @@ namespace JamCentral.Controllers.API
                 AttendeeId = userId
             };
 
-            _context.Attendences.Add(attendence);
-            _context.SaveChanges();
+            _unitOfWork.Attendences.Add(attendence);
+            _unitOfWork.Complete();
 
             return Ok();
         }

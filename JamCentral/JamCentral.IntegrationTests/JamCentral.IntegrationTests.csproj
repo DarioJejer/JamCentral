@@ -113,6 +113,7 @@
   <ItemGroup>
     <Compile Include="Controllers\API\AttendancesControllerTests.cs" />
     <Compile Include="Controllers\GigsControllerTests.cs" />
+    <Compile Include="Controllers\HomeControllerTests.cs" />
     <Compile Include="Extensions\ApiControllerExtensions.cs" />
     <Compile Include="Extensions\ControllerExtensions.cs" />
     <Compile Include="GlobalSetUp.cs" />

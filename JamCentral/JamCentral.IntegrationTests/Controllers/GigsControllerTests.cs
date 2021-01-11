@@ -94,7 +94,7 @@ namespace JamCentral.IntegrationTests.Controllers
         }
 
         [Test, Isolated]
-        public void MyCalendar_ColledCorrectly_ReturnListOfGigs()
+        public void MyCalendar_CalledCorrectly_ReturnListOfGigs()
         {
             var genre = _context.Genres.First();
             var gig1 = new Gig(_user.Id, "-", DateTime.Now.AddDays(1), genre.Id);
@@ -124,7 +124,7 @@ namespace JamCentral.IntegrationTests.Controllers
         }
 
         [Test, Isolated]
-        public void Create_ColledCorrectly_CreateAGig()
+        public void Create_CalledCorrectly_CreateAGig()
         {
             var genre = _context.Genres.First();
             var viewModel = new GigFormViewModel
@@ -145,7 +145,7 @@ namespace JamCentral.IntegrationTests.Controllers
         }
 
         [Test, Isolated]
-        public void Create_ColledWithFollowers_NotifyFollowers()
+        public void Create_CalledWithFollowers_NotifyFollowers()
         {
             var genre = _context.Genres.First();
             var viewModel = new GigFormViewModel
@@ -162,9 +162,6 @@ namespace JamCentral.IntegrationTests.Controllers
             _controller.Create(viewModel);
 
             var gig = _context.Gigs.First();
-            gig.Location.Should().Be("-");
-            gig.Date.Should().Be(DateTime.Today.AddDays(1).AddHours(18));
-            gig.GenreId.Should().Be(genre.Id);
             var notfication = _context.Notifications.First();
             notfication.GigId.Should().Be(gig.Id);
             var userNotification = _context.UserNotifications.First();

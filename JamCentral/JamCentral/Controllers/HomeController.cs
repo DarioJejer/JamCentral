@@ -16,9 +16,8 @@ namespace JamCentral.Controllers
         {
             _unitOfWok = unitOfWork;
         }
-        public ActionResult Index()
+        public ViewResult Index()
         {
-
             var gigs = _unitOfWok.Gigs.GetAllUpcomingGigs();
 
             var userId = User.Identity.GetUserId();
@@ -44,7 +43,7 @@ namespace JamCentral.Controllers
         }
 
         [HttpPost]
-        public ActionResult Search(string search)
+        public ViewResult Search(string search)
         {
             var gigs = _unitOfWok.Gigs.GetGigsOfSearch(search);
 

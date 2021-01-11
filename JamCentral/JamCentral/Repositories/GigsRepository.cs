@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace JamCentral.Repositories
 {
@@ -46,6 +45,31 @@ namespace JamCentral.Repositories
                 .Include(g => g.Artist.Followers.Select(f => f.User))
                 .Include(g => g.Attendences.Select(a => a.Attendee))
                 .SingleOrDefault(g => g.Id == gigId);
+        }
+
+        public IEnumerable<Gig> GetAllUpcomingGigs()
+        {
+            return _context.Gigs
+                .Include(m => m.Artist)
+                .Include(m => m.Genre)
+                .Where(g => g.Date > DateTime.Now && !g.IsCanceled)
+                .OrderBy(g => g.Date)
+                .ToList();
+        }
+
+        public IEnumerable<Gig> GetGigsOfSearch(string search)
+        {
+            return _context.Gigs
+                .Include(m => m.Artist)
+                .Include(m => m.Genre)
+                .Where(g =>
+                g.Date > DateTime.Now &&
+                !g.IsCanceled && (
+                g.Artist.Name.Contains(search) ||
+                g.Genre.Name.Contains(search) ||
+                g.Location.Contains(search)
+                ))
+                .ToList();
         }
 
         public void Add(Gig gig)

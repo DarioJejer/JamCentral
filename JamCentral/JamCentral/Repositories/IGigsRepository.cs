@@ -9,6 +9,8 @@ namespace JamCentral.Repositories
         IEnumerable<Gig> GetGigsOfArtist(string userId);
         IEnumerable<Gig> GetGigsUserIsAttending(string userId);
         Gig GetGigWithAttendanceAndFolllowers(int gigId);
+        IEnumerable<Gig> GetAllUpcomingGigs();
+        IEnumerable<Gig> GetGigsOfSearch(string search);
         void Add(Gig gig);
     }
 }

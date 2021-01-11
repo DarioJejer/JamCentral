@@ -1,4 +1,5 @@
 ﻿using JamCentral.Models;
+using System;
 using System.Linq;
 
 namespace JamCentral.Repositories
@@ -21,6 +22,14 @@ namespace JamCentral.Repositories
         {
             return _context.Attendences.SingleOrDefault(a => a.AttendeeId == userId && a.GigId == GigId);
 
+        }
+
+        public ILookup<int, Attendence> GetAttendacesByUser(string userId)
+        {
+            return _context.Attendences
+                .Where(a => a.AttendeeId == userId && a.Gig.Date > DateTime.Now)
+                .ToList()
+                .ToLookup(a => a.GigId);
         }
 
         public void Add(Attendence attendence)

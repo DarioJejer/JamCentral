@@ -1,47 +1,34 @@
 ﻿using AutoMapper;
 using JamCentral.Dtos;
 using JamCentral.Models;
-using JamCentral.Repositories;
+using JamCentral.Persistence;
 using JamCentral.ViewModels;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Data.Entity;
-using System.Linq;
 using System.Web.Mvc;
 
 namespace JamCentral.Controllers
 {
     public class HomeController : Controller
     {
-        private ApplicationDbContext _context;
-        private UserRepository _userRepository;
+        private IUnitOfWork _unitOfWok;
 
-        public HomeController()
+        public HomeController(IUnitOfWork unitOfWork)
         {
-            _context = new ApplicationDbContext();
-            _userRepository = new UserRepository(_context);
+            _unitOfWok = unitOfWork;
         }
         public ActionResult Index()
         {
 
-            var gigs = _context.Gigs
-                .Include(m => m.Artist)
-                .Include(m => m.Genre)
-                .Where(g => g.Date > DateTime.Now && !g.IsCanceled)
-                .OrderBy(g => g.Date)
-                .ToList();
+            var gigs = _unitOfWok.Gigs.GetAllUpcomingGigs();
 
             var userId = User.Identity.GetUserId();
 
             var user = new ApplicationUser();
 
             if (userId != null)            
-                user = _userRepository.GetUser(userId);
-            
-            var attendences = _context.Attendences
-                .Where(a => a.AttendeeId == userId && a.Gig.Date > DateTime.Now)
-                .ToList()
-                .ToLookup(a => a.GigId);
+                user = _unitOfWok.Users.GetUser(userId);
+
+            var attendences = _unitOfWok.Attendences.GetAttendacesByUser(userId);
 
             var viewModel = new GigsViewModel
             {
@@ -59,30 +46,16 @@ namespace JamCentral.Controllers
         [HttpPost]
         public ActionResult Search(string search)
         {
-
-            var gigs = _context.Gigs
-                .Include(m => m.Artist)
-                .Include(m => m.Genre)
-                .Where(g =>
-                g.Date > DateTime.Now &&
-                !g.IsCanceled && (
-                g.Artist.Name.Contains(search) ||
-                g.Genre.Name.Contains(search) ||
-                g.Location.Contains(search)
-                ))
-                .ToList();
+            var gigs = _unitOfWok.Gigs.GetGigsOfSearch(search);
 
             var userId = User.Identity.GetUserId();
 
             var user = new ApplicationUser();
 
+            var attendences = _unitOfWok.Attendences.GetAttendacesByUser(userId); ;
+
             if (userId != null)
-            {
-                user = _context.Users
-                    .Include(u => u.Followees)
-                    .Include(u => u.Attendences)
-                    .Single(u => u.Id == userId);
-            }
+                user = _unitOfWok.Users.GetUser(userId);
 
             var viewModel = new GigsViewModel
             {
@@ -91,8 +64,8 @@ namespace JamCentral.Controllers
                 User = Mapper.Map<ApplicationUserDto>(user),
                 Title = "Upcoming Gigs for this season",
                 Header = "Home Page",
-                Search = search
-
+                Search = search,
+                Attendences = attendences
             };
 
             return View("../Gigs/GigsList", viewModel);
